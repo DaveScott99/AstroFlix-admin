@@ -5,8 +5,8 @@ export default function Hub({ title }) {
   return (
     <Container>
      
-      <Title>{title}</Title>
-    
+      <Title>DASHBOARD</Title>
+
     </Container>
   );
 }

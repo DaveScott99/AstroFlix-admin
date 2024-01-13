@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
 
 import Hub from "../pages/Hub";
+import Movie from "../pages/Movie";
+
 
 export default function RouteApp() {
   return (
@@ -14,6 +16,16 @@ export default function RouteApp() {
           element={
             <Layout>
               <Hub />
+            </Layout>
+          }
+        />
+
+        <Route
+          exact
+          path="/movie"
+          element={
+            <Layout>
+              <Movie />
             </Layout>
           }
         />
