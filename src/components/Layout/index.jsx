@@ -1,6 +1,7 @@
 import React from "react";
 import { Aside, Brand, Main, Wrapper } from "./styles";
 import Menu from "../Menu";
+import Header from "../Header";
 
 export default function Layout({ children }) {
 
@@ -12,10 +13,10 @@ export default function Layout({ children }) {
 
                 <Menu />
             </Aside>
-            
-            <Main>
-                { children }
 
+            <Main>
+                <Header />
+                { children }
             </Main>
         </Wrapper>
     );

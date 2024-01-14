@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
-
-import Hub from "../pages/Hub";
 import Movie from "../pages/Movie";
+import Dashboard from "../pages/Dashboard";
 
 
 export default function RouteApp() {
@@ -15,7 +14,7 @@ export default function RouteApp() {
           path="/"
           element={
             <Layout>
-              <Hub />
+              <Dashboard />
             </Layout>
           }
         />

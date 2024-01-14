@@ -16,22 +16,17 @@ export const Main = styled.main`
   width: 85%;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background: ${(props) => props.theme.colors.background_color};
   color: ${(props) => props.theme.colors.texts};
-
-  border: 1px solid limegreen;
-
   overflow: auto;
 `;
 
 export const Aside = styled.aside`
   width: 15%;
   height: 100vh;
-
-
   background: #1A1E2A;
-
 `
 
 export const Brand = styled.h1`
