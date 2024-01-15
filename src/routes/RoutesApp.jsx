@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
 import Movie from "../pages/Movie";
 import Dashboard from "../pages/Dashboard";
+import Form from "../pages/Form";
 
 
 export default function RouteApp() {
@@ -28,6 +29,17 @@ export default function RouteApp() {
             </Layout>
           }
         />
+
+        <Route
+          exact
+          path="/create"
+          element={
+            <Layout>
+              <Form />
+            </Layout>
+          }
+        />
+
       </Routes>
     </BrowserRouter>
   );
