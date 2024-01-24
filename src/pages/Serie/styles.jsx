@@ -94,11 +94,7 @@ export const TableHead = styled.div`
   }
 
   #title {
-    width: 2000px;
-  }
-
-  #thumbnail {
-    width: 1000px;
+    width: 3000px;
   }
 
 `
@@ -112,11 +108,7 @@ export const TableBody = styled.div`
   }
 
   #title {
-    width: 2000px;
-  }
-
-  #thumbnail {
-    width: 1000px;
+    width: 3000px;
   }
 
   button {
@@ -130,10 +122,6 @@ export const TableBody = styled.div`
     font-size: 1em;
   }
 
-  .media--button {
-    background: #222222;
-  }
-
   .edit--button {
     background: #0055ff;
   }
@@ -144,8 +132,7 @@ export const TableBody = styled.div`
 `
 
 export const TableItem = styled.div`
-  border-bottom: 1px solid #00000010;
-  border-top: 1px solid #00000010;
+  border: 1px solid #00000010;
   width: 100%;
   padding: 10px 7px;
   display: flex;
@@ -154,20 +141,11 @@ export const TableItem = styled.div`
 `
 
 export const Item = styled.div`
-  border-bottom: 1px solid #00000010;
+  border: 1px solid #00000010;
   width: 100%;
   padding: 5px 7px;
   display: flex;
   align-items: center;
-`
-
-export const Thumbnail = styled.img`
-  border-bottom: 1px solid #00000010;
-  padding: 5px 7px;
-  width: 150px;
-  height: 85px;
-  background-size: cover;
-  user-select: none;
 `
 
 export const FooterTable = styled.div`

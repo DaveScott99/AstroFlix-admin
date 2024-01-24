@@ -2,9 +2,64 @@ import { styled } from "styled-components";
 
 export const Container = styled.section`
   width: 100%;
-  max-width: 800px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  flex-direction: row-reverse;
+`;
+
+export const ImagesContainer = styled.div`
+  width: 50%;
+  margin-left: 10px;
+`;
+
+export const Card = styled.div`
+  margin-bottom: 20px;
+`;
+
+export const ImageList = styled.div`
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 40px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  border-radius: 0px 10px;
+`;
+
+export const ImageContainer = styled.div`
+  width: 320px;
+  height: 200px;
+  cursor: pointer;
+  padding: 5px;
+
+  position: relative;
+
+  svg {
+    width: 80px;
+    height: max-content;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    margin: auto;
+  }
+`;
+
+export const ImageItem = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 30px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const Title = styled.div`
@@ -15,7 +70,7 @@ export const Title = styled.div`
 
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const ButtonNew = styled.button`
   padding: 10px 20px;
@@ -25,19 +80,19 @@ export const ButtonNew = styled.button`
   border: none;
   background: ${(props) => props.theme.colors.primary};
   cursor: pointer;
-  color: #FFF;
-`
+  color: #fff;
+`;
 
 export const MovieList = styled.div`
   border-radius: 50px;
-`
+  width: 50%;
+`;
 
 export const Content = styled.div`
-  padding: 20px;
-  background: #FFF;
+  padding: 15px 0px;
   border-radius: 5px;
-
-  form{ 
+      
+  form {
   }
 
   .form--item {
@@ -55,7 +110,7 @@ export const Content = styled.div`
     padding: 10px;
     border-radius: 5px;
     outline: none;
-    font-size: .9em;
+    font-size: 0.9em;
     border: 1px solid black;
   }
 
@@ -67,7 +122,7 @@ export const Content = styled.div`
     height: 200px;
   }
 
-  .form--buttons{
+  .form--buttons {
     display: flex;
     justify-content: center;
     margin-top: 30px;
@@ -77,11 +132,11 @@ export const Content = styled.div`
     padding: 10px 30px;
     margin-right: 10px;
     margin-left: 10px;
-    font-size: .9em;
+    font-size: 0.9em;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    color: #FFF;
+    color: #fff;
     font-weight: 600;
   }
 
@@ -98,90 +153,88 @@ export const Content = styled.div`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 export const Header = styled.div`
   padding: 10px;
-  background: #20283D;
-  color: #FFF;
+  background: #20283d;
+  color: #fff;
   border-radius: 5px 5px 0px 0px;
-`
+`;
 
 export const LogoInput = styled.label`
-    width: 400px;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    position: relative;
-    cursor: pointer;
-    background: ${props => props.theme.colors.white_smoke};
-    padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  width: 400px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+  background: ${(props) => props.theme.colors.white_smoke};
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
-    &:hover {
-        opacity: .8;
-    }
-`
+  &:hover {
+    opacity: 0.8;
+  }
+`;
 
 export const PosterInput = styled.label`
-    width: 220px;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    position: relative;
-    cursor: pointer;
-    background: ${props => props.theme.colors.white_smoke};
-    padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 50px;
+  width: 220px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+  background: ${(props) => props.theme.colors.white_smoke};
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 50px;
 
-    &:hover {
-        opacity: .8;
-    }
-`
+  &:hover {
+    opacity: 0.8;
+  }
+`;
 
 export const Input = styled.input`
-    display: none;
-`
+  display: none;
+`;
 
-export const Preview = styled.span`
-
-`
+export const Preview = styled.span``;
 
 export const Image = styled.img`
-    width: 400px;
-    background-size: cover;
-    border-radius: 5px;
-`
+  width: 400px;
+  background-size: cover;
+  border-radius: 5px;
+`;
 
 export const PosterImage = styled.img`
-    width: 220px;
-    height: 300px;
-    background-size: cover;
-    border-radius: 5px;
-`
+  width: 220px;
+  height: 300px;
+  background-size: cover;
+  border-radius: 5px;
+`;
 
 export const ButtonUpload = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 
-    svg {
-        font-size: 2em;
-        color: ${props => props.theme.colors.black};
-    }
+  svg {
+    font-size: 2em;
+    color: ${(props) => props.theme.colors.black};
+  }
 
-    span {
-        font-size: 1em;
-        font-weight: 400;
-        color: ${props => props.theme.colors.black};
-    }
-`
+  span {
+    font-size: 1em;
+    font-weight: 400;
+    color: ${(props) => props.theme.colors.black};
+  }
+`;

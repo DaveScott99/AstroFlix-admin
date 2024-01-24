@@ -1,37 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  ButtonUpload,
+  Card,
   Container,
   Content,
   Header,
-  Image,
-  Input,
-  LogoInput,
+  ImageContainer,
+  ImageItem,
+  ImageList,
+  ImagesContainer,
   MovieList,
-  PosterImage,
-  PosterInput,
-  Preview,
-  Title,
 } from "./styles";
-import { Link } from "react-router-dom";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import Tmdb from "../../util/Tmdb";
+import Select from "react-select";
+import { ReactComponent as Check } from "../../assets/check.svg";
 
-export default function Form() {
+export default function Form({ mediaData }) {
+  const [movieImages, setMovieImages] = useState([]);
   const [movieState, setMovieState] = useState({
     title: "",
     trailer: "",
     logo: "",
-    poster: "",
+    backdrop: "",
+    thumbnail: "",
     duration: "",
     longDescription: "",
     shortDescription: "",
+    genres: [],
+    productionCompanie: "",
+    country: "",
+    releaseDate: "",
   });
+  
+  useEffect(() => {
+    const loadAll = async () => {
 
-  const [previewLogo, setPreviewLogo] = useState(null);
-  const [previewPoster, setPreviewPoster] = useState(null);
+      let media = await Tmdb.getMovieInfo(mediaData, "movie");
+      let images = await Tmdb.getMovieImages(mediaData);
+      let videos = await Tmdb.getMovieVideo(mediaData);
+      let selectedTrailer = videos[0].items.results.filter(i => i.type === "Trailer")
+
+      let newMovie = {
+        title: media?.title,
+        trailer: selectedTrailer[0]?.key,
+        logo: "",
+        backdrop: "",
+        thumbnail: "",
+        duration: media?.runtime,
+        longDescription: media?.overview,
+        shortDescription: media?.tagline,
+        genres: media?.genres,
+        productionCompanie: media?.production_companies[0].name,
+        country: media?.production_countries[0].name,
+        releaseDate: media?.release_date,
+      }
+
+      localStorage.setItem("current-newMovie", JSON.stringify(newMovie));
+
+      const storedMovie = JSON.parse(localStorage.getItem("current-newMovie"));
+
+      if (storedMovie) {
+        setMovieState(storedMovie);
+      }
+
+      setMovieImages(images);
+    };
+    loadAll();
+  }, [mediaData]);
 
   const handleOnChangeMovie = (e, key) => {
-    setMovieState({ ...movieState, [key]: e.target.value });
+    const changedData = { ...movieState, [key]: e.target.value };
+
+    localStorage.setItem('current-newMovie', JSON.stringify(changedData))
+
+    setMovieState(changedData);
+  };
+
+  const handleSelectImages = (image, key) => {
+    const changedData = { ...movieState, [key]: image };
+
+    localStorage.setItem('current-newMovie', JSON.stringify(changedData))
+
+    setMovieState(changedData);
   };
 
   const handleMovieForm = (e) => {
@@ -39,84 +88,73 @@ export default function Form() {
     console.log(movieState);
   };
 
-  const handleLogoChange = (event) => {
-    const file = event.target.files[0];
-    setMovieState({ ...movieState, ["logo"]: file });
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewLogo(reader.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setPreviewLogo(null);
-    }
-  };
-
-  const handlePosterChange = (event) => {
-    const file = event.target.files[0];
-    setMovieState({ ...movieState, ["poster"]: file });
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewPoster(reader.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setPreviewPoster(null);
-    }
-  };
-
   return (
     <Container>
-      <Title>Create Movie</Title>
+      <ImagesContainer>
+        <Card>
+          <Header>Select logo image</Header>
+
+          <ImageList>
+            {movieImages[1]?.items.logos.map((item) => (
+              <ImageContainer onClick={() => handleSelectImages(item.file_path, "logo")}
+              >
+                <ImageItem
+                  style={{
+                    transform: movieState.logo === item.file_path ? "scale(1.15)" : "",
+                  }}
+                  src={`https://image.tmdb.org/t/p/original` + item.file_path}
+                />
+
+                {movieState.logo === item.file_path ? <Check /> : null}
+
+              </ImageContainer>
+            ))}
+          </ImageList>
+        </Card>
+
+        <Card>
+          <Header>Select backdrop image</Header>
+
+          <ImageList>
+            {movieImages[0]?.items.backdrops.map((item) => (
+              <ImageContainer onClick={() => handleSelectImages(item.file_path, "backdrop")}>
+                <ImageItem
+                  style={{
+                    transform: movieState.backdrop === item.file_path ? "scale(1.15)" : "",
+                  }}
+                  src={`https://image.tmdb.org/t/p/original` + item.file_path}
+                />
+
+                  {movieState.backdrop === item.file_path ? <Check /> : null}
+              </ImageContainer>
+            ))}
+          </ImageList>
+        </Card>
+
+        <Card>
+          <Header>Select thumbnail image</Header>
+
+          <ImageList>
+            {movieImages[1]?.items.backdrops.map((item) => (
+              <ImageContainer onClick={() => handleSelectImages(item.file_path, "thumbnail")}>
+                <ImageItem
+                 style={{
+                  transform: movieState.thumbnail === item.file_path ? "scale(1.15)" : "",
+                  }}
+                  src={`https://image.tmdb.org/t/p/original` + item.file_path}
+                />
+                {movieState.thumbnail === item.file_path ? <Check /> : null}
+              </ImageContainer>
+            ))}
+          </ImageList>
+        </Card>
+      </ImagesContainer>
 
       <MovieList>
         <Header>Movie Create</Header>
 
         <Content>
           <form onSubmit={handleMovieForm}>
-            <div className="form--images">
-              <LogoInput>
-                <Input
-                  type="file"
-                  accept="image/jpeg, image/png"
-                  onChange={handleLogoChange}
-                />
-
-                <Preview>
-                  {previewLogo ? (
-                    <Image src={previewLogo} alt="Preview" />
-                  ) : (
-                    <ButtonUpload>
-                      <AiOutlineCloudUpload />
-                      <span>Logo - icon image of the movie</span>
-                    </ButtonUpload>
-                  )}
-                </Preview>
-              </LogoInput>
-
-              <PosterInput>
-                <Input
-                  type="file"
-                  accept="image/jpeg, image/png"
-                  onChange={handlePosterChange}
-                />
-
-                <Preview>
-                  {previewPoster ? (
-                    <PosterImage src={previewPoster} alt="Preview" />
-                  ) : (
-                    <ButtonUpload>
-                      <AiOutlineCloudUpload />
-                      <span>Poster - large banner image of the movie</span>
-                    </ButtonUpload>
-                  )}
-                </Preview>
-              </PosterInput>
-            </div>
             <div className="form--item">
               <label className="form--label">Movie Title *</label>
               <input
@@ -130,11 +168,11 @@ export default function Form() {
             </div>
             <div className="form--item">
               <label className="form--label">
-                Movie Trailer Url - youtube or any hosted video *
+                Trailer *
               </label>
               <input
                 className="form--input"
-                type="url"
+                type="text"
                 name="trailer"
                 value={movieState.trailer}
                 onChange={(e) => handleOnChangeMovie(e, "trailer")}
@@ -148,7 +186,6 @@ export default function Form() {
                 className="form--input"
                 type="text"
                 name="duration"
-                placeholder="-- : -- : --"
                 value={movieState.duration}
                 onChange={(e) => handleOnChangeMovie(e, "duration")}
                 required
@@ -158,6 +195,7 @@ export default function Form() {
               <label className="form--label">Long description *</label>
               <textarea
                 className="form--input form--textarea"
+                style={{ height: "100px" }}
                 type="text"
                 name="longDescritpion"
                 value={movieState.longDescription}
@@ -169,6 +207,7 @@ export default function Form() {
               <label className="form--label">Short description *</label>
               <textarea
                 className="form--input form--textarea"
+                style={{ height: "70px" }}
                 type="text"
                 name="shortDescription"
                 value={movieState.shortDescription}
@@ -177,61 +216,62 @@ export default function Form() {
               />
             </div>
             <div className="form--item">
-              <label className="form--label">
-                Director - select single director
-              </label>
-              <select className="form--input" name="director">
-                <option selected>Select an Director</option>
-              </select>
+              <label className="form--label">Production Companie</label>
+              <input
+                className="form--input"
+                type="text"
+                name="productionCompanie"
+                value={movieState.productionCompanie}
+                onChange={(e) => handleOnChangeMovie(e, "productionCompanie")}
+                required
+              />
             </div>
-            <div className="form--item">
-              <label className="form--label">
-                Actors - select multiple actors
-              </label>
-              <select className="form--input" name="actor">
-                <option selected>Select multiple Actors</option>
-              </select>
-            </div>
+
             <div className="form--item">
               <label className="form--label">Country</label>
-              <select className="form--input" name="country">
-                <option selected>Select an Country</option>
-              </select>
+              <input
+                className="form--input"
+                type="text"
+                name="country"
+                value={movieState.country}
+                onChange={(e) => handleOnChangeMovie(e, "country")}
+                required
+              />
             </div>
+
             <div className="form--item">
               <label className="form--label">
                 Genre - genre must be selected
               </label>
-              <select className="form--input" name="genre">
-                <option selected>Select an Genre</option>
-              </select>
-            </div>
-            <div className="form--item">
-              <label className="form--label">
-                Publishing Year - year of publishing time
-              </label>
-              <input className="form--input" type="number" name="txtYear" />
-            </div>
-            <div className="form--item">
-              <label className="form--label">
-                Rating - star rating of the movie
-              </label>
-              <select className="form--input" name="genre">
-                <option selected>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+
+
+              <Select 
+                options={movieState.genres}
+                isMulti
+                value={movieState.genres}
+                getOptionLabel={(genre) => genre.name}
+                getOptionValue={(genre) => genre.id}
+              />
+
             </div>
 
+
+            <div className="form--item">
+              <label className="form--label">
+                Release date
+              </label>
+              <input className="form--input" type="text" name="releaseDate" value={movieState.releaseDate} />
+            </div>
+
+            {/*
             <div className="form--buttons">
               <Link to="/movie">
                 <button className="form--button cancel">Cancel</button>
               </Link>
               <button className="form--button create">Create Movie</button>
             </div>
+
+              */}
           </form>
         </Content>
       </MovieList>

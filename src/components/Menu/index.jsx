@@ -24,13 +24,13 @@ export default function Menu() {
         </MenuItem>
       </Link>
 
-      <Link to="/#">
+      <Link to="/serie">
         <MenuItem>
         <PiTelevisionLight /> Tv Series
         </MenuItem>
       </Link>
 
-      <Link to="/#">
+      <Link to="/genres">
         <MenuItem>
         <GrBookmark /> Genre
         </MenuItem>
@@ -48,7 +48,7 @@ export default function Menu() {
         </MenuItem>
       </Link>
 
-      <Link to="/#">
+      <Link to="/users">
         <MenuItem>
         <GrGroup /> Users
         </MenuItem>

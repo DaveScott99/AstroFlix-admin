@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
 import Movie from "../pages/Movie";
 import Dashboard from "../pages/Dashboard";
-import Form from "../pages/Form";
-
+import Serie from "../pages/Serie";
+import User from "../pages/User";
+import Genre from "../pages/Genre";
+import CreateMovie from "../pages/CreateMovie";
 
 export default function RouteApp() {
   return (
@@ -32,10 +34,40 @@ export default function RouteApp() {
 
         <Route
           exact
+          path="/serie"
+          element={
+            <Layout>
+              <Serie />
+            </Layout>
+          }
+        />
+
+        <Route
+          exact
+          path="/users"
+          element={
+            <Layout>
+              <User />
+            </Layout>
+          }
+        />
+
+        <Route
+          exact
+          path="/genres"
+          element={
+            <Layout>
+              <Genre />
+            </Layout>
+          }
+        />
+
+        <Route
+          exact
           path="/create"
           element={
             <Layout>
-              <Form />
+              <CreateMovie />
             </Layout>
           }
         />

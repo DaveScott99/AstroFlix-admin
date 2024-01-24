@@ -1,23 +1,18 @@
 import React from "react";
-import { ButtonNew, Container, Content, FooterTable, Header, Item, Itens, MovieList, Pages, Search, SearchInput, Show, ShowAndSearch, Table, TableBody, TableHead, TableItem, Thumbnail, Title } from "./styles";
-import { Link } from "react-router-dom";
+import { Container, Content, FooterTable, Header, Item, Itens, MovieList, Pages, Search, SearchInput, Show, ShowAndSearch, Table, TableBody, TableHead, TableItem, Title } from "./styles";
 
-export default function Movie() {
+export default function User() {
     return(
         <Container>
              <Title>
                 
-                Manage movies
-
-                <Link to="/create">
-                    <ButtonNew>+ Create movie</ButtonNew>
-                </Link>
+                Manage Users
 
              </Title>
 
             <MovieList>
                 <Header>
-                    Movie List
+                    Users
                 </Header>
             <Content>
                 <Table>
@@ -39,19 +34,16 @@ export default function Movie() {
 
                     <TableHead>
                         <TableItem id="id">#</TableItem>
-                        <TableItem id="thumbnail"></TableItem>
-                        <TableItem id="title">Movie Title</TableItem>
-                        <TableItem>Genre</TableItem>
+                        <TableItem id="title">Name</TableItem>
+                        <TableItem>Email</TableItem>
                         <TableItem>Operation</TableItem>
                     </TableHead>
 
                     <TableBody>
                         <Item id="id">1</Item>
-                        <Item id="thumbnail"><Thumbnail src="https://images.universohq.com/2014/08/TheFlashBanner.jpg" /></Item>
-                        <Item id="title">The Flash</Item>
-                        <Item>Ficção</Item>
+                        <Item id="title">Davi</Item>
+                        <Item>davi@gmail.com</Item>
                         <Item>
-                            <button className="media--button">Media</button>
                             <button className="edit--button">Edit</button>
                             <button className="delete--button">Delete</button>
                         </Item>
