@@ -7,6 +7,7 @@ import Serie from "../pages/Serie";
 import User from "../pages/User";
 import Genre from "../pages/Genre";
 import CreateMovie from "../pages/CreateMovie";
+import CreateGenre from "../pages/CreateGenre";
 
 export default function RouteApp() {
   return (
@@ -72,6 +73,15 @@ export default function RouteApp() {
           }
         />
 
+        <Route
+          exact
+          path="/create/genre"
+          element={
+            <Layout>
+              <CreateGenre />
+            </Layout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

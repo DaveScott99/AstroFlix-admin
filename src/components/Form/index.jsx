@@ -10,12 +10,15 @@ import {
   ImagesContainer,
   MovieList,
 } from "./styles";
-import Tmdb from "../../util/Tmdb";
 import Select from "react-select";
 import { ReactComponent as Check } from "../../assets/check.svg";
+import { useQuery } from "@tanstack/react-query";
+import { getMovieBackdrop, getMovieData, getMovieThumbnailAndLogo, getMovieVideo } from "../../services/TmdbService";
+import Loading from "../Loading";
 
 export default function Form({ mediaData }) {
-  const [movieImages, setMovieImages] = useState([]);
+  const [mediaBackDrops, setMediaBackDrops] = useState([]);
+  const [mediaLogoThumb, setMediaLogoThumb] = useState([]);
   const [movieState, setMovieState] = useState({
     title: "",
     trailer: "",
@@ -31,27 +34,28 @@ export default function Form({ mediaData }) {
     releaseDate: "",
   });
   
-  useEffect(() => {
-    const loadAll = async () => {
-
-      let media = await Tmdb.getMovieInfo(mediaData, "movie");
-      let images = await Tmdb.getMovieImages(mediaData);
-      let videos = await Tmdb.getMovieVideo(mediaData);
-      let selectedTrailer = videos[0].items.results.filter(i => i.type === "Trailer")
+  const { isLoading, isFetching } = useQuery(
+    [mediaData],
+    async () => {
+      const media = await getMovieData(mediaData);
+      const backdrops = await getMovieBackdrop(mediaData);
+      const thumbnailAndLogo = await getMovieThumbnailAndLogo(mediaData);
+      const trailer = await getMovieVideo(mediaData);
+      let selectedTrailer = trailer.data.results.filter(i => i.type === "Trailer")
 
       let newMovie = {
-        title: media?.title,
+        title: media.data?.title,
         trailer: selectedTrailer[0]?.key,
         logo: "",
         backdrop: "",
         thumbnail: "",
-        duration: media?.runtime,
-        longDescription: media?.overview,
-        shortDescription: media?.tagline,
-        genres: media?.genres,
-        productionCompanie: media?.production_companies[0].name,
-        country: media?.production_countries[0].name,
-        releaseDate: media?.release_date,
+        duration: media.data?.runtime,
+        longDescription: media.data?.overview,
+        shortDescription: media.data?.tagline,
+        genres: media.data?.genres,
+        productionCompanie: media.data?.production_companies[0].name,
+        country: media.data?.production_countries[0].name,
+        releaseDate: media.data?.release_date,
       }
 
       localStorage.setItem("current-newMovie", JSON.stringify(newMovie));
@@ -62,12 +66,15 @@ export default function Form({ mediaData }) {
         setMovieState(storedMovie);
       }
 
-      setMovieImages(images);
-    };
-    loadAll();
-  }, [mediaData]);
+      setMediaBackDrops(backdrops.data);
+      setMediaLogoThumb(thumbnailAndLogo.data);
+    },
+    {
+      cacheTime: 60*2
+    }
+  );
 
-  const handleOnChangeMovie = (e, key) => {
+  const handleOnChangeMovieData = (e, key) => {
     const changedData = { ...movieState, [key]: e.target.value };
 
     localStorage.setItem('current-newMovie', JSON.stringify(changedData))
@@ -88,14 +95,20 @@ export default function Form({ mediaData }) {
     console.log(movieState);
   };
 
+  if (isLoading) {
+    return <Loading color="#FFF" />
+  }
+
   return (
     <Container>
       <ImagesContainer>
+
+
         <Card>
           <Header>Select logo image</Header>
-
+          
           <ImageList>
-            {movieImages[1]?.items.logos.map((item) => (
+            {mediaLogoThumb.logos?.map((item) => (
               <ImageContainer onClick={() => handleSelectImages(item.file_path, "logo")}
               >
                 <ImageItem
@@ -116,7 +129,7 @@ export default function Form({ mediaData }) {
           <Header>Select backdrop image</Header>
 
           <ImageList>
-            {movieImages[0]?.items.backdrops.map((item) => (
+            {mediaBackDrops.backdrops?.map((item) => (
               <ImageContainer onClick={() => handleSelectImages(item.file_path, "backdrop")}>
                 <ImageItem
                   style={{
@@ -135,7 +148,7 @@ export default function Form({ mediaData }) {
           <Header>Select thumbnail image</Header>
 
           <ImageList>
-            {movieImages[1]?.items.backdrops.map((item) => (
+            {mediaLogoThumb.backdrops?.map((item) => (
               <ImageContainer onClick={() => handleSelectImages(item.file_path, "thumbnail")}>
                 <ImageItem
                  style={{
@@ -148,7 +161,9 @@ export default function Form({ mediaData }) {
             ))}
           </ImageList>
         </Card>
+             
       </ImagesContainer>
+ 
 
       <MovieList>
         <Header>Movie Create</Header>
@@ -162,7 +177,7 @@ export default function Form({ mediaData }) {
                 type="text"
                 name="title"
                 value={movieState.title}
-                onChange={(e) => handleOnChangeMovie(e, "title")}
+                onChange={(e) => handleOnChangeMovieData(e, "title")}
                 required
               />
             </div>
@@ -175,7 +190,7 @@ export default function Form({ mediaData }) {
                 type="text"
                 name="trailer"
                 value={movieState.trailer}
-                onChange={(e) => handleOnChangeMovie(e, "trailer")}
+                onChange={(e) => handleOnChangeMovieData(e, "trailer")}
                 required
               />
             </div>
@@ -187,7 +202,7 @@ export default function Form({ mediaData }) {
                 type="text"
                 name="duration"
                 value={movieState.duration}
-                onChange={(e) => handleOnChangeMovie(e, "duration")}
+                onChange={(e) => handleOnChangeMovieData(e, "duration")}
                 required
               />
             </div>
@@ -199,7 +214,7 @@ export default function Form({ mediaData }) {
                 type="text"
                 name="longDescritpion"
                 value={movieState.longDescription}
-                onChange={(e) => handleOnChangeMovie(e, "longDescription")}
+                onChange={(e) => handleOnChangeMovieData(e, "longDescription")}
                 required
               />
             </div>
@@ -211,7 +226,7 @@ export default function Form({ mediaData }) {
                 type="text"
                 name="shortDescription"
                 value={movieState.shortDescription}
-                onChange={(e) => handleOnChangeMovie(e, "shortDescription")}
+                onChange={(e) => handleOnChangeMovieData(e, "shortDescription")}
                 required
               />
             </div>
@@ -222,7 +237,7 @@ export default function Form({ mediaData }) {
                 type="text"
                 name="productionCompanie"
                 value={movieState.productionCompanie}
-                onChange={(e) => handleOnChangeMovie(e, "productionCompanie")}
+                onChange={(e) => handleOnChangeMovieData(e, "productionCompanie")}
                 required
               />
             </div>
@@ -234,7 +249,7 @@ export default function Form({ mediaData }) {
                 type="text"
                 name="country"
                 value={movieState.country}
-                onChange={(e) => handleOnChangeMovie(e, "country")}
+                onChange={(e) => handleOnChangeMovieData(e, "country")}
                 required
               />
             </div>

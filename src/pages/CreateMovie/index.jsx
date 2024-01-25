@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Tmdb from "../../util/Tmdb";
+import React, { useState } from "react";
 import {
   Card,
   CardCover,
@@ -14,22 +13,15 @@ import {
 } from "./styles";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { ReactComponent as Check } from "../../assets/check.svg";
-import Form from "../Form";
+import Form from "../../components/Form";
+import Loading from "../../components/Loading";
+import { searchMovieByTittle } from "../../services/TmdbService";
+import { useQuery } from "@tanstack/react-query";
 
 export default function CreateMovie() {
   const [movieList, setMovieList] = useState([]);
-  const [isloading, setIsLoading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
   const [selectedItem, setSelectedItem] = useState("");
-
-  useEffect(() => {
-    const loadAll = async () => {
-      let list = await Tmdb.searchMovieByTittle(searchInput);
-      setMovieList(list[0].items.results);
-    };
-    setIsLoading(false);
-    loadAll();
-  }, [searchInput]);
 
   const handleCancelNewMovie = () => {
     setSelectedItem("")
@@ -48,14 +40,20 @@ export default function CreateMovie() {
       releaseDate: "",
       cast: []
     }
-
     localStorage.setItem("current-newMovie", JSON.stringify(newMovieForPublish));
-   
   }
 
-  if (isloading) {
-    return <p>Loading...</p>;
-  }
+  const { isLoading, isFetching } = useQuery(
+    [searchInput],
+    async () => {
+      const movies = await searchMovieByTittle(searchInput);
+      setMovieList(movies.data.results);
+      return movies;
+    },
+    {
+      cacheTime: 60*2
+    }
+  );
 
   return (
     <Container>
@@ -106,7 +104,9 @@ export default function CreateMovie() {
 
                 {selectedItem === item.id ? <Check /> : null}
               </Card>
+               
             ))}
+            {isFetching && <Loading color="#FFF" />}
           </ContainerCards>
         </Content>
       ) : (
@@ -114,6 +114,7 @@ export default function CreateMovie() {
           <Form mediaData={selectedItem} />
         </FormCreateContainer>
       )}
+
     </Container>
   );
 }

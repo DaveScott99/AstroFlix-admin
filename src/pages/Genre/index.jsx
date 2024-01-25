@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Content, FooterTable, Header, Item, Itens, MovieList, Pages, Search, SearchInput, Show, ShowAndSearch, Table, TableBody, TableHead, TableItem, Title } from "./styles";
+import { ButtonNew, Container, Content, FooterTable, Header, Item, Itens, MovieList, Pages, Search, SearchInput, Show, ShowAndSearch, Table, TableBody, TableHead, TableItem, Title } from "./styles";
+import { Link } from "react-router-dom";
 
 export default function Genre() {
     return(
@@ -7,7 +8,9 @@ export default function Genre() {
              <Title>
                 
                 Manage Genres
-
+                <Link to="/create/genre">
+                    <ButtonNew>+ Create genre</ButtonNew>
+                </Link>
              </Title>
 
             <MovieList>
