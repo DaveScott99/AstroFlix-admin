@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { Table } from "../components/table";
+import { Toast } from "../components/toast/toast";
 import { useSearchAstroflix } from "../hooks/useSearchAstroflix";
 import { MediaMinDTO } from "../types/mediaMinDTO";
 
@@ -27,8 +27,11 @@ const medias = [
 ];
 
 export function Movie() {
-
-  const { data: movies, isFetching, error } = useSearchAstroflix<MediaMinDTO[]>("/media/movie/all");
+  const {
+    data: movies,
+    isFetching,
+    error,
+  } = useSearchAstroflix<MediaMinDTO[]>("/media/movie/all");
 
   return (
     <div>
@@ -38,16 +41,15 @@ export function Movie() {
           placeholder="Search"
           className="text-sm border p-2 rounded-md"
         />
-
-        <Link
-          to="/create/movie"
-          className="center rounded-md bg-green-500 py-2 px-6 text-sm font-bold"
-        >
-          Create
-        </Link>
       </div>
 
-      <Table listMedias={movies} isFetching={isFetching}/>
+      <Table listMedias={movies} isFetching={isFetching} />
+
+      {error?.message && (
+        <div className="mt-10">
+            <Toast title="Error!" description={error?.message} status="error"/>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useApiTmdb } from "./useApiTmdb";
 import { useSearchMovie } from "./useSearchMovies";
 import { FormProps, MediaPropsByApi, schemaMediaForm } from "../types/create-media";
 import { useApiAstroflix } from "./useApiAstroflix";
+import { AxiosResponse } from "axios";
 
 export type Media = {
     id: number,
@@ -33,6 +34,7 @@ export const useFormCreateMedia = () => {
         }
     });
     const [formStep, setFormStep] = useState<number>(0);
+    const [createResponse, setCreateResponse] = useState<AxiosResponse>();
     const api = useApiTmdb();
     const astroflixApi = useApiAstroflix();
 
@@ -53,11 +55,11 @@ export const useFormCreateMedia = () => {
         completeFormStep()
     }, [handleSetData])
 
-    const handleFormSubmit = async (data: FormProps) => {
-        alert(JSON.stringify( data.media ))
+    const handleFormSubmit = useCallback(async (data: FormProps) => {
         const media = await astroflixApi.createMovie(data.media);
+        setCreateResponse(media);
         console.log(media)
-    }
+    }, [])
 
     const selectFormStep = (step: number) => {
         setFormStep(step)
@@ -78,6 +80,7 @@ export const useFormCreateMedia = () => {
         medias,
         watch,
         control,
+        createResponse,
         setValue,
         isFetchingMedias,
         handleFormSubmit,

@@ -1,9 +1,13 @@
+import { AxiosResponse } from "axios";
+import { Toast } from "../../../toast/toast";
+
 interface FormProps {
   watch: any;
   errors: any;
+  createResponse: AxiosResponse | null | undefined
 }
 
-export function VerifyAndSave({ watch, errors }: FormProps) {
+export function VerifyAndSave({ watch, errors, createResponse }: FormProps) {
   return (
     <section className="flex flex-col gap-3">
       <h1 className="text-xl font-bold mb-6">Verify & Save</h1>
@@ -71,6 +75,21 @@ export function VerifyAndSave({ watch, errors }: FormProps) {
             {errors.media?.overview?.message}
           </p>
         )}
+      </div>
+
+      
+      {
+        createResponse?.status === 201 ?
+          <Toast title="Success!" description="Movie created" status="success" />
+        : createResponse?.status === 500 ?
+          <Toast title="Error!" description="Movie not created" status="error" />
+        :   
+        ""
+      }
+    
+
+      <div>
+        STATUS: {JSON.stringify(createResponse?.status)}
       </div>
     </section>
   );
