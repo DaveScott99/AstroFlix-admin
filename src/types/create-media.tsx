@@ -22,6 +22,11 @@ export const schemaMediaForm = z.object({
             invalid_type_error: "Short description must be a string"
         }).min(8, {message: 'Must be 8 or more characters long'}),
 
+        releaseYear: z.coerce.number({
+            required_error: "Release Year is required",
+            invalid_type_error: "Realease Year must be a number"
+        }).int().min(1, { message: 'Please enter a value greater than 0' }),
+
         idTmdb: z.coerce.number({
             required_error: "idTmbd is required",
             invalid_type_error: "idTmbd must be a number"
@@ -40,7 +45,8 @@ export type MediaPropsByApi = {
     runtime: number,
     overview: string,
     tagline: string,
-    id: number
+    id: number,
+    release_date: string
 }
 
 export type FormProps = z.infer<typeof schemaMediaForm>;

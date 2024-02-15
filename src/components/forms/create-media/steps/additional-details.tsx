@@ -53,6 +53,20 @@ export function AdditionalDetails({
 
           <div className="flex flex-col mb-2">
             <Input
+              {...register("media.releaseYear")}
+              type="number"
+              min={0}
+              label="Realease Year"
+            />
+            {errors.media?.runtime?.message && (
+              <p className="text-red-600 font-bold text-sm mt-1">
+                {errors.media?.runtime?.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col mb-2">
+            <Input
               {...register("media.runtime")}
               type="number"
               min={0}

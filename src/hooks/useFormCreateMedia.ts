@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useCallback, useState } from "react";
 import { useApi } from "./useApi";
 import { useSearchMovie } from "./useSearchMovies";
@@ -23,6 +23,7 @@ export const useFormCreateMedia = () => {
             media: {
                 title: '',
                 runtime: 0,
+                releaseYear: 0,
                 overview: '',
                 tagline: '',
                 isAdult: 'false',
@@ -41,6 +42,7 @@ export const useFormCreateMedia = () => {
         setValue('media.overview', data?.overview)
         setValue('media.tagline', data?.tagline)
         setValue('media.idTmdb', data?.id)
+        setValue('media.releaseYear', Number(data.release_date.substring(0, 4)))
     }, [setValue])
 
     const handleSelectMedia = useCallback(async (movieId: number) => {

@@ -29,6 +29,16 @@ export function VerifyAndSave({ watch, errors }: FormProps) {
       </div>
 
       <div className="flex">
+        <h2 className="font-semibold text-base mr-2">Release Year: </h2>
+        <p>{watch("media.releaseYear")}</p>
+        {errors.media?.releaseYear?.message && (
+          <p className="text-red-600 font-bold text-sm mt-1">
+            {errors.media?.releaseYear?.message}
+          </p>
+        )}
+      </div>
+
+      <div className="flex">
         <h2 className="font-semibold text-base mr-2">Runtime: </h2>
         <p>{watch("media.runtime")}</p>
         {errors.media?.runtime?.message && (
