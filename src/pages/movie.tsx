@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Table } from "../components/table";
+import { useSearchAstroflix } from "../hooks/useSearchAstroflix";
+import { MediaMinDTO } from "../types/mediaMinDTO";
 
 const medias = [
   {
@@ -25,6 +27,9 @@ const medias = [
 ];
 
 export function Movie() {
+
+  const { data: movies, isFetching, error } = useSearchAstroflix<MediaMinDTO[]>("/media/movie/all");
+
   return (
     <div>
       <div className="mb-2 flex justify-between">
@@ -42,7 +47,7 @@ export function Movie() {
         </Link>
       </div>
 
-      <Table listMedias={medias} />
+      <Table listMedias={movies} isFetching={isFetching}/>
     </div>
   );
 }
