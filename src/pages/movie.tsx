@@ -11,7 +11,6 @@ const medias = [
     year: 2017,
     language: "English",
     status: true,
-    score: 50,
   },
   {
     id: 2,
@@ -21,8 +20,7 @@ const medias = [
     genre: [{ id: 1, name: "Science Fiction" }],
     year: 2017,
     language: "English",
-    status: true,
-    score: 50,
+    status: false,
   },
 ];
 

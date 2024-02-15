@@ -23,9 +23,6 @@ export function Table({ listMedias }: ListMediasProps) {
             Status
           </th>
           <th className="px-6 align-middle border border-t-0 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-            Score
-          </th>
-          <th className="px-6 align-middle border border-t-0 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
             ||
           </th>
         </tr>
@@ -61,22 +58,10 @@ export function Table({ listMedias }: ListMediasProps) {
             </td>
 
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <i className="w-2 h-2 outline text-green-500 mr-2"></i>
-              <span className="font-semibold text-slate-950 text-xs">
-                {item.status}
+              <i className={`w-2 h-2 outline ${item.status === true ? "text-green-500" : "text-red-500"}  mr-2`}></i>
+              <span className="font-semibold text-xs">
+                {item.status === true ? 'Active' : "Disabled"}
               </span>
-            </td>
-
-            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              <div
-                className="w-12 h-12 rounded-full flex justify-center items-center"
-                style={{
-                  background:
-                    "radial-gradient(closest-side, #18181b 75%, transparent 80% 100%), conic-gradient(#0055ff 50%, #00000016 0)",
-                }}
-              >
-                <span className="font-semibold">{item.score}%</span>
-              </div>
             </td>
 
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

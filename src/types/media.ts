@@ -9,5 +9,4 @@ export interface Media {
     year: number;
     language: string;
     status: boolean;
-    score: number;
 }
