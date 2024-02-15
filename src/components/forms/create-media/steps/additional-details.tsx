@@ -1,13 +1,14 @@
 import { useTimeout } from "../../../../hooks/useTimeout";
 import { Input } from "../../../input";
 import { Loading } from "../../../loading";
-
+import { Controller } from "react-hook-form";
 
 interface FormProps {
   register: any;
   errors: any;
   previusFormStep: any;
   completeFormStep: any;
+  control: any;
 }
 
 export function AdditionalDetails({
@@ -15,6 +16,7 @@ export function AdditionalDetails({
   errors,
   previusFormStep,
   completeFormStep,
+  control,
 }: FormProps) {
   const { isLoading } = useTimeout(300);
 
@@ -26,6 +28,29 @@ export function AdditionalDetails({
         <Loading />
       ) : (
         <>
+          <div className="flex flex-col mb-2">
+            <label className="font-semibold mb-2 text-sm">Adult</label>
+
+            <Controller
+              name="media.isAdult"
+              control={control}
+              defaultValue='false'
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="border p-2 rounded-md bg-transparent outline-blue-500 dark:focus:ring-blue-500 placeholder-transparent"
+                >
+                  <option className="bg-zinc-50 dark:bg-zinc-950" value="false">
+                    No
+                  </option>
+                  <option className="bg-zinc-50 dark:bg-zinc-950" value="true">
+                    Yes
+                  </option>
+                </select>
+              )}
+            />
+          </div>
+
           <div className="flex flex-col mb-2">
             <Input
               {...register("media.runtime")}

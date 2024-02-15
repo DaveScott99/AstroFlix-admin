@@ -25,7 +25,9 @@ export const schemaMediaForm = z.object({
         idTmdb: z.coerce.number({
             required_error: "idTmbd is required",
             invalid_type_error: "idTmbd must be a number"
-        }).int().min(1, {message: "Please enter a value greater than 0"})
+        }).int().min(1, {message: "Please enter a value greater than 0"}),
+
+        isAdult: z.coerce.string()
     }),
 
     querySearch: z.object({

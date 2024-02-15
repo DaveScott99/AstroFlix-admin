@@ -11,7 +11,7 @@ export type Media = {
 }
 
 export const useFormCreateMedia = () => {
-    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormProps>({
+    const { register, handleSubmit, formState: { errors }, setValue, watch, control } = useForm<FormProps>({
         mode: 'all',
         reValidateMode: 'onChange',
         criteriaMode: 'all',
@@ -25,6 +25,7 @@ export const useFormCreateMedia = () => {
                 runtime: 0,
                 overview: '',
                 tagline: '',
+                isAdult: 'false',
                 idTmdb: 0
             }
         }
@@ -50,7 +51,7 @@ export const useFormCreateMedia = () => {
 
     const handleFormSubmit = (data: FormProps) => {
         alert(JSON.stringify( data.media ))
-        console.log({ data })
+        console.log( data.media )
     }
 
     const selectFormStep = (step: number) => {
@@ -71,6 +72,7 @@ export const useFormCreateMedia = () => {
         formStep,
         medias,
         watch,
+        control,
         setValue,
         isFetchingMedias,
         handleFormSubmit,

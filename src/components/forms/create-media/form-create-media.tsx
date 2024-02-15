@@ -22,6 +22,7 @@ export function Form() {
     isFetchingMedias,
     setValue,
     handleSelectMedia,
+    control
   } = useFormCreateMedia();
 
   document.addEventListener("keydown", function (e) {
@@ -71,10 +72,11 @@ export function Form() {
                   errors={errors}
                   previusFormStep={previusFormStep}
                   completeFormStep={completeFormStep}
+                  control={control}
                 />
               )}
 
-              {formStep === 3 && <VerifyAndSave watch={watch} />}
+              {formStep === 3 && <VerifyAndSave watch={watch} errors={errors} />}
 
               <div className="mt-6 flex justify-end">
                 {formStep === 3 && (
