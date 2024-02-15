@@ -50,10 +50,10 @@ export function VerifyAndSave({ watch, errors }: FormProps) {
 
       <div className="flex">
         <h2 className="font-semibold text-base mr-2">TMDB ID: </h2>
-        <p>{watch("media.idTmdb")}</p>
-        {errors.media?.idTmdb?.message && (
+        <p>{watch("media.idTMDB")}</p>
+        {errors.media?.idTMDB?.message && (
           <p className="text-red-600 font-bold text-sm mt-1">
-            {errors.media?.idTmdb?.message}
+            {errors.media?.idTMDB?.message}
           </p>
         )}
       </div>

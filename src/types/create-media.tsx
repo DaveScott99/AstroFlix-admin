@@ -27,7 +27,7 @@ export const schemaMediaForm = z.object({
             invalid_type_error: "Realease Year must be a number"
         }).int().min(1, { message: 'Please enter a value greater than 0' }),
 
-        idTmdb: z.coerce.number({
+        idTMDB: z.coerce.number({
             required_error: "idTmbd is required",
             invalid_type_error: "idTmbd must be a number"
         }).int().min(1, {message: "Please enter a value greater than 0"}),

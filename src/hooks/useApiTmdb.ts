@@ -6,7 +6,7 @@ const TMDB_API = axios.create({
     baseURL: import.meta.env.VITE_TMDB_API_URL,
 })
 
-export const useApi = () => ({
+export const useApiTmdb = () => ({
 
     searchMovieByTitle: async (title: string) => {
         return await TMDB_API.get(`/search/movie?query=${title}&include_adult=false&language=en-US&api_key=${TMDB_API_KEY}`)

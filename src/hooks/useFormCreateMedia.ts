@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useCallback, useState } from "react";
-import { useApi } from "./useApi";
+import { useApiTmdb } from "./useApiTmdb";
 import { useSearchMovie } from "./useSearchMovies";
 import { FormProps, MediaPropsByApi, schemaMediaForm } from "../types/create-media";
+import { useApiAstroflix } from "./useApiAstroflix";
 
 export type Media = {
     id: number,
@@ -27,12 +28,13 @@ export const useFormCreateMedia = () => {
                 overview: '',
                 tagline: '',
                 isAdult: 'false',
-                idTmdb: 0
+                idTMDB: 0
             }
         }
     });
     const [formStep, setFormStep] = useState<number>(0);
-    const api = useApi();
+    const api = useApiTmdb();
+    const astroflixApi = useApiAstroflix();
 
     const { data: medias, isFetching: isFetchingMedias } = useSearchMovie<Media[]>(watch("querySearch.title"));
 
@@ -41,7 +43,7 @@ export const useFormCreateMedia = () => {
         setValue('media.runtime', data?.runtime);
         setValue('media.overview', data?.overview)
         setValue('media.tagline', data?.tagline)
-        setValue('media.idTmdb', data?.id)
+        setValue('media.idTMDB', data?.id)
         setValue('media.releaseYear', Number(data.release_date.substring(0, 4)))
     }, [setValue])
 
@@ -51,9 +53,10 @@ export const useFormCreateMedia = () => {
         completeFormStep()
     }, [handleSetData])
 
-    const handleFormSubmit = (data: FormProps) => {
+    const handleFormSubmit = async (data: FormProps) => {
         alert(JSON.stringify( data.media ))
-        console.log( data.media )
+        const media = await astroflixApi.createMovie(data.media);
+        console.log(media)
     }
 
     const selectFormStep = (step: number) => {

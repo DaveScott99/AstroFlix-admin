@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useApi } from "./useApi";
+import { useApiTmdb } from "./useApiTmdb";
 
 export function useSearchMovie<T = unknown>(query: any) {
 
@@ -7,7 +7,7 @@ export function useSearchMovie<T = unknown>(query: any) {
     const [isFetching, setIsFetching] = useState(true);
     const [error, setError] = useState<Error | null>()
 
-    const api = useApi();
+    const api = useApiTmdb();
 
     useEffect(() => {
 

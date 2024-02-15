@@ -49,14 +49,14 @@ export function MediaDetails({
 
           <div className="flex flex-col mb-2">
             <Input
-              {...register("media.idTmdb")}
+              {...register("media.idTMDB")}
               type="text"
               label="TMDB ID"
               readOnly
             />
-            {errors.media?.idTmdb?.message && (
+            {errors.media?.idTMDB?.message && (
               <p className="text-red-600 font-bold text-sm mt-1">
-                {errors.media?.idTmdb?.message}
+                {errors.media?.idTMDB?.message}
               </p>
             )}
           </div>
