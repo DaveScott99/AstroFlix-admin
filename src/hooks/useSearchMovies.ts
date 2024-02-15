@@ -31,3 +31,4 @@ export function useSearchMovie<T = unknown>(query: any) {
     }
 
 }
+

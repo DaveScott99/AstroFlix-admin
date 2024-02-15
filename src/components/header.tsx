@@ -4,7 +4,7 @@ import { Nav } from "./nav";
 
 export function Header() {
   return (
-    <header className="mx-auto max-full mb-16 py-4 px-12 flex justify-between items-center">
+    <header className="mx-auto max-full w-full bg-transparent fixed top-0 py-4 px-12 flex justify-between items-center">
       <div>
         <img src={logo} alt="Astroflix logo" className="max-w-32" />
       </div>

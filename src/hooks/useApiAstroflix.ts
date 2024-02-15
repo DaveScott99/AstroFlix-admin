@@ -1,11 +1,35 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import React from 'react';
 
 const ASTROFLIX_API = axios.create({
     baseURL: import.meta.env.VITE_ASTROFLIX_API_URL,
 })
 
-export const useApiAstroflix = () => ({
-    createMovie: async (movieBody: any) => {
-        return await ASTROFLIX_API.post("/media/movie", movieBody)
+export function useApiAstroflix() {
+    const [data, setData] = React.useState<AxiosResponse>();
+    const [isFetching, setIsFetching] = React.useState(true);
+    const [error, setError] = React.useState<Error | null>()
+
+    const methods = {
+        createMovie: async (movieBody: any) => {
+            await ASTROFLIX_API.post("/media/movie", movieBody)
+                .then(response => {
+                    setData(response);
+                })
+                .catch(err => {
+                    setError(err);
+                })
+                .finally(() => {
+                    setIsFetching(false);
+                })
+        }
     }
-})
+
+    return {
+        methods,
+        data,
+        isFetching,
+        error
+    }
+
+}

@@ -1,6 +1,7 @@
 import { GearIcon } from "@radix-ui/react-icons";
 import { MediaMinDTO } from "../types/mediaMinDTO";
 import { Loading } from "./loading";
+import { Link } from "react-router-dom";
 
 interface ListMediasProps {
   listMedias: MediaMinDTO[] | undefined | null;
@@ -87,11 +88,13 @@ export function Table({ listMedias, isFetching }: ListMediasProps) {
                 </td>
 
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <GearIcon
-                    className="cursor-pointer border border-blue-500 p-1 rounded-md text-blue-500 hover:bg-blue-500 transition-all hover:text-white"
-                    width="30"
-                    height="30"
-                  />
+                  <Link to={`/media/` + item.title}>
+                    <GearIcon
+                      className="cursor-pointer border border-blue-500 p-1 rounded-md text-blue-500 hover:bg-blue-500 transition-all hover:text-white"
+                      width="30"
+                      height="30"
+                    />
+                  </Link>
                 </td>
               </tr>
             ))}
