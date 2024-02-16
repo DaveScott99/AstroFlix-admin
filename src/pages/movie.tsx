@@ -34,7 +34,7 @@ export function Movie() {
   } = useSearchAstroflix<MediaMinDTO[]>("/media/movie/all");
 
   return (
-    <div>
+    <div className="pt-24">
       <div className="mb-2 flex justify-between">
         <input
           type="text"
@@ -43,7 +43,16 @@ export function Movie() {
         />
       </div>
 
-      <Table listMedias={movies} isFetching={isFetching} />
+      {
+        /*
+          <Table listMedias={movies} isFetching={isFetching} />
+        */
+
+      }
+
+
+      
+
 
       {error?.message && (
         <div className="mt-10">
