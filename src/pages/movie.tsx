@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { Table } from "../components/table";
 import { Toast } from "../components/toast/toast";
 import { useSearchAstroflix } from "../hooks/useSearchAstroflix";
 import { MediaMinDTO } from "../types/mediaMinDTO";
+import { Card } from "../components/card";
 
 const medias = [
   {
@@ -35,6 +37,7 @@ export function Movie() {
 
   return (
     <div className="pt-24">
+      {/*v
       <div className="mb-2 flex justify-between">
         <input
           type="text"
@@ -43,20 +46,20 @@ export function Movie() {
         />
       </div>
 
-      {
-        /*
           <Table listMedias={movies} isFetching={isFetching} />
-        */
+        */}
 
-      }
-
-
-      
-
+      <section className="grid grid-cols-4 gap-6">
+        {
+          movies?.map((movie) => (
+            <Card key={movie.id} media={movie} />
+          ))
+        }
+      </section>
 
       {error?.message && (
         <div className="mt-10">
-            <Toast title="Error!" description={error?.message} status="error"/>
+          <Toast title="Error!" description={error?.message} status="error" />
         </div>
       )}
     </div>

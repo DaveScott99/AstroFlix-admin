@@ -14,8 +14,8 @@ export function Media() {
           backgroundImage: `url(https://image.tmdb.org/t/p/original/yyFc8Iclt2jxPmLztbP617xXllT.jpg)`,
         }}
       >
-        <div className="w-full pt-24 bg-zinc-50 bg-opacity-20 dark:bg-zinc-950 dark:bg-opacity-30">
-          <div className="w-full bg-gradient-to-b from-transparent to-zinc-50 dark:bg-gradient-to-t dark:from-zinc-950 dark:to-transparent ">
+        <div className="w-full pt-24 bg-zinc-50 bg-opacity-20 dark:bg-slate-950 dark:bg-opacity-30">
+          <div className="w-full bg-gradient-to-b from-transparent to-zinc-50 dark:bg-gradient-to-t dark:from-slate-950 dark:to-transparent ">
             <div className="mx-auto max-w-7xl flex items-center gap-6 py-8">
               <div className="max-w-[300px] max-h-[450px] h-full w-full rounded-md">
                 <img
