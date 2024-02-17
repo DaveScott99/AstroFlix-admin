@@ -22,7 +22,21 @@ export function useApiAstroflix() {
                 .finally(() => {
                     setIsFetching(false);
                 })
+        },
+        
+        addGenre: async (id: number, genre: any) => {
+            await ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${id}`, genre)
+                .then(response => {
+                    setData(response);
+                })
+                .catch(err => {
+                    setError(err);
+                })
+                .finally(() => {
+                    setIsFetching(false);
+                })
         }
+
     }
 
     return {

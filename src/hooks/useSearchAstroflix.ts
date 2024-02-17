@@ -7,7 +7,7 @@ const ASTROFLIX_API = axios.create({
 
 export function useSearchAstroflix<T = unknown>(path: string) {
 
-    const [data, setData] = useState<T | null>();
+    const [data, setData] = useState<T>();
     const [isFetching, setIsFetching] = useState(true);
     const [error, setError] = useState<Error | null>()
 
@@ -16,7 +16,7 @@ export function useSearchAstroflix<T = unknown>(path: string) {
 
         ASTROFLIX_API.get(path)
         .then(response => {
-            setData(response.data.content);
+            setData(response.data);
         })
         .catch(err => {
             setError(err);

@@ -9,4 +9,5 @@ export type MediaMinDTO = {
     genres: Genre[];
     active: boolean;
     poster: ArtDTO;
+    content: any;
   }

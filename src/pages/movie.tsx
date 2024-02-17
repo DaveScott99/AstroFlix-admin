@@ -1,49 +1,23 @@
-import { Link } from "react-router-dom";
-import { Table } from "../components/table";
-import { Toast } from "../components/toast/toast";
-import { useSearchAstroflix } from "../hooks/useSearchAstroflix";
-import { MediaMinDTO } from "../types/mediaMinDTO";
 import { Card } from "../components/card";
 import { Loading } from "../components/loading";
-
-const medias = [
-  {
-    id: 1,
-    title: "Interestellar",
-    logo: "https://i.ibb.co/gy04BcX/interestellar-logo.png",
-    parentalAdvisory: "PG-13",
-    genre: [{ id: 1, name: "Science Fiction" }],
-    year: 2017,
-    language: "English",
-    status: true,
-  },
-  {
-    id: 2,
-    title: "Interestellar",
-    logo: "https://i.ibb.co/gy04BcX/interestellar-logo.png",
-    parentalAdvisory: "PG-13",
-    genre: [{ id: 1, name: "Science Fiction" }],
-    year: 2017,
-    language: "English",
-    status: false,
-  },
-];
+import { Toast } from "../components/toast/toast";
+import { useSearchAstroflix } from "../hooks/useSearchAstroflix";
 
 export function Movie() {
   const {
     data: movies,
     isFetching,
     error,
-  } = useSearchAstroflix<MediaMinDTO[]>("/media/movie/all");
+  } = useSearchAstroflix<any>("/media/movie/all");
 
   return (
-    <div className="pt-24">
+    <div>
 
       {isFetching ? (
         <Loading />
       ) : (
         <section className="grid grid-cols-4 gap-6">
-          {movies?.map((movie) => (
+          {movies?.content.map((movie: any) => (
             <Card key={movie.id} media={movie} />
           ))}
         </section>

@@ -8,26 +8,32 @@ import { Movie } from './pages/movie';
 import { NotFoundPage } from './pages/not-found-page';
 import { CreateMovie } from './pages/create-movie';
 import { Media } from './pages/media';
+import { ConfigMedia } from './pages/config-media';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout center><Home/></Layout>,
+    element: <Layout center colision_header><Home/></Layout>,
     errorElement: <NotFoundPage />
   },
   {
     path: "/movie",
-    element: <Layout center><Movie /></Layout>,
+    element: <Layout center colision_header><Movie /></Layout>,
     errorElement: <NotFoundPage />
   },
   {
     path: "/create/movie",
-    element: <Layout center><CreateMovie /></Layout>,
+    element: <Layout center colision_header><CreateMovie /></Layout>,
     errorElement: <NotFoundPage />
   },
   {
     path: "/media/:title",
     element: <Layout><Media /></Layout>,
+    errorElement: <NotFoundPage />
+  },
+  {
+    path: "/media/config/:title",
+    element: <Layout center colision_header><ConfigMedia /></Layout>,
     errorElement: <NotFoundPage />
   }
 ]);
