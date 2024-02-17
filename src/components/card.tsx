@@ -10,8 +10,8 @@ export function Card({ media }: MediaProps) {
     <Link to={`/media/` + "Wonka"}>
       <article className="max-w-[350px] min-w-[100px] w-full p-4 bg-slate-100 dark:bg-slate-950 border border-slate-300 border-opacity-20 rounded-lg cursor-pointer">
         <img
-          src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/AbkZUxkVZU8XhoRGkknu6cZUark.jpg"
-          alt="Media poster"
+          src={media.poster.file}
+          alt={media.poster.name}
           className="max-w-[300] max-h-[450] w-full h-full bg-cover"
         />
 

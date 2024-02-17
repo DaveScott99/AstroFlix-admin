@@ -35,7 +35,7 @@ export function Toast({ title, description, status }: ToastProps) {
   }, []);
 
   return (
-    <ToastUI.Provider swipeDirection="down">
+    <ToastUI.Provider swipeDirection="right">
       <ToastUI.Root
         className={`ToastRoot bg-zinc-50 dark:bg-zinc-950 border ${
           status === "success"

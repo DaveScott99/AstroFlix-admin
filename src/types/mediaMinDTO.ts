@@ -1,3 +1,4 @@
+import { ArtDTO } from "./artDTO";
 import { Genre } from "./genre";
 
 export type MediaMinDTO = {
@@ -7,4 +8,5 @@ export type MediaMinDTO = {
     releaseYear: number;
     genres: Genre[];
     active: boolean;
+    poster: ArtDTO;
   }

@@ -4,6 +4,7 @@ import { Toast } from "../components/toast/toast";
 import { useSearchAstroflix } from "../hooks/useSearchAstroflix";
 import { MediaMinDTO } from "../types/mediaMinDTO";
 import { Card } from "../components/card";
+import { Loading } from "../components/loading";
 
 const medias = [
   {
@@ -37,25 +38,16 @@ export function Movie() {
 
   return (
     <div className="pt-24">
-      {/*v
-      <div className="mb-2 flex justify-between">
-        <input
-          type="text"
-          placeholder="Search"
-          className="text-sm border p-2 rounded-md"
-        />
-      </div>
 
-          <Table listMedias={movies} isFetching={isFetching} />
-        */}
-
-      <section className="grid grid-cols-4 gap-6">
-        {
-          movies?.map((movie) => (
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <section className="grid grid-cols-4 gap-6">
+          {movies?.map((movie) => (
             <Card key={movie.id} media={movie} />
-          ))
-        }
-      </section>
+          ))}
+        </section>
+      )}
 
       {error?.message && (
         <div className="mt-10">
