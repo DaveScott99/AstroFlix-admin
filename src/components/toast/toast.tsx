@@ -10,7 +10,7 @@ import {
 
 interface ToastProps {
   title: string;
-  description: string;
+  description: any;
   status: string;
 }
 

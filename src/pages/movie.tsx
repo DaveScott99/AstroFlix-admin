@@ -1,23 +1,33 @@
 import { Card } from "../components/card";
 import { Loading } from "../components/loading";
 import { Toast } from "../components/toast/toast";
-import { useSearchAstroflix } from "../hooks/useSearchAstroflix";
+import { ASTROFLIX_API } from "../helper/axios-instance";
+import { useQuery } from "@tanstack/react-query";
+import { MediaMinDTO } from "../types/mediaMinDTO";
 
 export function Movie() {
   const {
     data: movies,
     isFetching,
     error,
-  } = useSearchAstroflix<any>("/media/movie/all");
+  } = useQuery<MediaMinDTO[]>({
+    queryKey: ["movies"],
+    queryFn: async () => {
+      const response = await ASTROFLIX_API.get("/media/movie/all");
+
+      return response.data.content;
+    },
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60, // 1 minute
+  });
 
   return (
     <div>
-
       {isFetching ? (
         <Loading />
       ) : (
         <section className="grid grid-cols-4 gap-6">
-          {movies?.content.map((movie: any) => (
+          {movies?.map((movie: MediaMinDTO) => (
             <Card key={movie.id} media={movie} />
           ))}
         </section>

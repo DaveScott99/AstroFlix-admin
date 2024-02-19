@@ -23,9 +23,15 @@ export function useApiAstroflix() {
                     setIsFetching(false);
                 })
         },
-        
-        addGenre: async (id: number, genre: any) => {
-            await ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${id}`, genre)
+
+        addGenre: (id: number, genre: any) => {
+
+            ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${id}`, genre);
+
+        },
+
+        removeGenre: async (id: number, genre: any) => {
+            await ASTROFLIX_API.delete(`/media/movie/remove/genre?mediaId=${id}`, { data: genre })
                 .then(response => {
                     setData(response);
                 })

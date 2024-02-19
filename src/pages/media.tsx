@@ -1,8 +1,31 @@
 import { Link, useParams } from "react-router-dom";
 import { GearIcon } from "@radix-ui/react-icons";
+import { ASTROFLIX_API } from "../helper/axios-instance";
+import { useQuery } from "@tanstack/react-query";
+import { MediaMinDTO } from "../types/mediaMinDTO";
+import { Loading } from "../components/loading";
 
 export function Media() {
-  const { title } = useParams();
+  const params = useParams();
+  const currentMedia = params['title'] as string;
+
+  const {
+    data: media,
+    isFetching,
+    error,
+  } = useQuery<MediaMinDTO>({
+    queryKey: ["media"],
+    queryFn: async () => {
+      const response = await ASTROFLIX_API.get("/media/movie/find?title=" + currentMedia);
+
+      return response.data;
+    },
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60, // 1 minute
+  });
+
+  if (isFetching) 
+    return <Loading />
 
   return (
     <div>
@@ -19,7 +42,7 @@ export function Media() {
             <div className="mx-auto max-w-7xl flex items-center gap-6 py-8">
               <div className="max-w-[300px] max-h-[450px] h-full w-full rounded-md">
                 <img
-                  src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/AbkZUxkVZU8XhoRGkknu6cZUark.jpg"
+                  src={media?.poster.file}
                   alt="Media poster"
                   className="rounded-md"
                 />
@@ -28,10 +51,10 @@ export function Media() {
               <div className="flex flex-col gap-0.5">
                 <div className="flex justify-between">
                   <h2 className="font-semibold text-3xl">
-                    Wonka <span className="font-light">(2023)</span>
+                    {currentMedia} <span className="font-light">({media?.releaseYear})</span>
                   </h2>
 
-                  <Link to="#">
+                  <Link to={"/media/config/" + currentMedia} >
                     <button className="border p-1 rounded-lg">
                       <GearIcon width="30px" height="30px" />
                     </button>
@@ -45,11 +68,12 @@ export function Media() {
                   <div className="flex gap-1 text-sm">
                     <span>12/07/2023</span>
 
-                    <span>Comedy</span>
-                    <span>Family</span>
-                    <span>Fantasy</span>
+                    {media?.genres.map((genre) => (
+                      <span key={genre.id}>{genre.name}</span>
+                    ))}
+                
 
-                    <span>2h</span>
+                    <span>2h</span> {/* RUNTIME */}
                   </div>
                 </div>
 

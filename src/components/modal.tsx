@@ -1,25 +1,36 @@
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Dialog from "@radix-ui/react-dialog";
+import React from "react";
 
 interface ModalProps {
-    trigger: any;
-    content: any;
+  trigger: any;
+  content: any;
+  cancelButton: any;
+  confirmBUtton: any;
 }
 
-export function Modal({ trigger, content }: ModalProps) {
-    return (
+export function Modal({
+  trigger,
+  content,
+  confirmBUtton,
+  cancelButton,
+}: ModalProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
 
-        <Dialog.Root>
-            <Dialog.Trigger asChild>
-                {trigger}
-            </Dialog.Trigger>
-            <Dialog.Portal>
-                <Dialog.Overlay className='inset-0 bg-black/50 fixed' />
+  return (
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="inset-0 bg-black/50 fixed" />
 
-                <Dialog.Content className='z-10 bg-slate-900 rounded-md fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[640px] w-full'>
-                    {content}
-                </Dialog.Content>
-            </Dialog.Portal>
-        </Dialog.Root>
+        <Dialog.Content className={`z-10 p-4 bg-slate-900 rounded-md fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 `}>
+          {content}
 
-    )
+          <div className="flex gap-2 justify-end">
+            <Dialog.Close>{cancelButton}</Dialog.Close>
+            <Dialog.Close><div>{confirmBUtton}</div></Dialog.Close>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
 }

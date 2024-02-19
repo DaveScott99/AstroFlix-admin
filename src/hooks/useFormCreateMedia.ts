@@ -58,10 +58,10 @@ export const useFormCreateMedia = () => {
     const handleFormSubmit = useCallback((data: FormProps) => {
         astroflixMethods.createMovie(data.media);
 
-        if (!isFetching) 
+        if (!isFetching)
             setCreateResponse(astroflixResponseData);
 
-            console.log(astroflixResponseData);
+        console.log(astroflixResponseData);
 
     }, [])
 

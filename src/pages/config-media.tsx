@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { AddGenre } from "../components/edit-media/add-genre";
+import { GenreConfig } from "../components/edit-media/genre/genre-config";
 
 export function ConfigMedia() {
   return (
     <section className="flex gap-4">
-      <div className="max-w-[250px] w-full bg-slate-900 rounded-md">
+      <div className="max-w-[250px] w-full bg-slate-900 rounded-md h-full">
         <div className="p-2 bg-slate-500 rounded-tl-md rounded-tr-md">
           <h2 className="font-semibold">Edit</h2>
         </div>
@@ -23,7 +23,9 @@ export function ConfigMedia() {
         </ul>
       </div>
 
-      <AddGenre />
+     
+      <GenreConfig />
+
 
 
     </section>
