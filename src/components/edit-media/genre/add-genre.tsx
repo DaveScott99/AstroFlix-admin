@@ -1,18 +1,22 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PlusCircle } from "lucide-react";
 import React from "react";
-import Select from "react-select";
 import { ASTROFLIX_API } from "../../../helper/axios-instance";
 import { Genre } from "../../../types/genre";
 import { Modal } from "../../modal";
 import { Toast } from "../../toast/toast";
+import { SelectComponent } from "../../select";
 
 export function AddGenre() {
   const [selectedGenre, setSelectedGenre] = React.useState<Genre>();
 
   const queryClient = useQueryClient();
 
-  const { mutate, isSuccess, error: errorAdd } = useMutation({
+  const {
+    mutate,
+    isSuccess,
+    error: errorAdd,
+  } = useMutation({
     mutationFn: () =>
       ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${1}`, selectedGenre),
     onSuccess: () => {
@@ -28,20 +32,22 @@ export function AddGenre() {
     },
     onError: () => {
       setSelectedGenre(undefined);
-    }
+    },
   });
 
-  const { data: genres, isFetching, error: errorGenre } = useQuery<Genre[]>({
+  const {
+    data: genres,
+    isFetching,
+    error: errorGenre,
+  } = useQuery<Genre[]>({
     queryKey: ["all-genres"],
     queryFn: async () => {
-      const response = await ASTROFLIX_API.get(
-        "/media/genre"
-      );
+      const response = await ASTROFLIX_API.get("/media/genre");
 
       return response.data;
     },
     refetchOnWindowFocus: false,
-    staleTime: 5000 * 60 // 5 minutes
+    staleTime: 5000 * 60, // 5 minutes
   });
 
   const handleGenreChange = (selectedGenre: any) => {
@@ -61,50 +67,11 @@ export function AddGenre() {
           <div className="p-4 flex flex-col gap-8 w-64">
             <span className="text-lg font-semibold">Add Genre</span>
 
-            <Select
-              isSearchable
+            <SelectComponent
+              loading={isFetching}
+              options={genres}
               value={selectedGenre}
               onChange={handleGenreChange}
-              options={genres}
-              getOptionLabel={(genre: Genre) => genre.name}
-              getOptionValue={(genre: Genre) => genre.id.toString()}
-              isLoading={isFetching}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  background: "#0f172a",
-                  color: "#FFF",
-                }),
-                menu: (baseStyles) => ({
-                  ...baseStyles,
-                  background: "#1e293b",
-                  color: "#FFF",
-                }),
-                option: (baseStyles) => {
-                  return {
-                    ...baseStyles,
-                    backgroundColor: "transparent",
-                    color: "#FFF",
-                    cursor: "pointer",
-                    transition: "all .1s",
-
-                    ":active": {
-                      ...baseStyles[":active"],
-                      backgroundColor: "transparent",
-                    },
-                    ":hover": {
-                      ...baseStyles[":hover"],
-                      background: "#334155",
-                    },
-                  };
-                },
-                singleValue: (baseStyles) => {
-                  return {
-                    ...baseStyles,
-                    color: "#FFF",
-                  };
-                },
-              }}
             />
           </div>
         }
@@ -132,7 +99,11 @@ export function AddGenre() {
 
       {errorGenre && (
         <div className="mt-10">
-          <Toast title="Error!" description={errorGenre.message} status="error" />
+          <Toast
+            title="Error!"
+            description={errorGenre.message}
+            status="error"
+          />
         </div>
       )}
 
