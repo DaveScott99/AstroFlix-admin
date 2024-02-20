@@ -7,7 +7,8 @@ import { Loading } from "../components/loading";
 
 export function Media() {
   const params = useParams();
-  const currentMedia = params['title'] as string;
+  const currentMediaTitle = params['title'] as string;
+  const currentMediaId = params['id'] as string;
 
   const {
     data: media,
@@ -16,7 +17,7 @@ export function Media() {
   } = useQuery<MediaMinDTO>({
     queryKey: ["media"],
     queryFn: async () => {
-      const response = await ASTROFLIX_API.get("/media/movie/find?title=" + currentMedia);
+      const response = await ASTROFLIX_API.get("/media/movie/find?title=" + currentMediaTitle);
 
       return response.data;
     },
@@ -51,10 +52,10 @@ export function Media() {
               <div className="flex flex-col gap-0.5">
                 <div className="flex justify-between">
                   <h2 className="font-semibold text-3xl">
-                    {currentMedia} <span className="font-light">({media?.releaseYear})</span>
+                    {currentMediaTitle} <span className="font-light">({media?.releaseYear})</span>
                   </h2>
 
-                  <Link to={"/media/config/" + currentMedia} >
+                  <Link to={`/media/config/${currentMediaId}/${currentMediaTitle}/details`} >
                     <button className="border p-1 rounded-lg">
                       <GearIcon width="30px" height="30px" />
                     </button>

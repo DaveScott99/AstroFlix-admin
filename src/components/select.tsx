@@ -20,18 +20,19 @@ export function SelectComponent({ value, onChange, options, loading }: SelectPro
       styles={{
         control: (baseStyles) => ({
           ...baseStyles,
-          background: "#0f172a",
+          background: "transparent",
           color: "#FFF",
         }),
         menu: (baseStyles) => ({
           ...baseStyles,
-          background: "#1e293b",
+          background: "#020617",
+          border: "1px solid white",
           color: "#FFF",
         }),
         option: (baseStyles) => {
           return {
             ...baseStyles,
-            backgroundColor: "transparent",
+            backgroundColor: "#000",
             color: "#FFF",
             cursor: "pointer",
             transition: "all .1s",
@@ -42,7 +43,7 @@ export function SelectComponent({ value, onChange, options, loading }: SelectPro
             },
             ":hover": {
               ...baseStyles[":hover"],
-              background: "#334155",
+              background: "#030922",
             },
           };
         },

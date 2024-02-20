@@ -11,6 +11,9 @@ import { Media } from "./pages/media";
 import { ConfigMedia } from "./pages/config-media";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./services/queryClient";
+import { GenreConfig } from "./components/edit-media/genre/genre-config";
+import { Details } from "./components/edit-media/details/details";
+import { Logo } from "./components/edit-media/art/logo";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +44,7 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/media/:title",
+    path: "/media/:id/:title",
     element: (
       <Layout>
         <Media />
@@ -50,10 +53,34 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/media/config/:title",
+    path: "/media/config/:id/:title/details",
     element: (
       <Layout center colision_header>
-        <ConfigMedia />
+        <ConfigMedia>
+          <Details />
+        </ConfigMedia>
+      </Layout>
+    ),
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/media/config/:id/:title/genre",
+    element: (
+      <Layout center colision_header>
+        <ConfigMedia>
+          <GenreConfig />
+        </ConfigMedia>
+      </Layout>
+    ),
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/media/config/:id/:title/logo",
+    element: (
+      <Layout center colision_header>
+        <ConfigMedia>
+          <Logo />
+        </ConfigMedia>
       </Layout>
     ),
     errorElement: <NotFoundPage />,

@@ -7,10 +7,11 @@ import {
   CrossCircledIcon,
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
+import { LoadingClean } from "../loading-clean";
 
 interface ToastProps {
-  title: string;
-  description: any;
+  title?: string;
+  description?: any;
   status: string;
 }
 
@@ -28,39 +29,50 @@ export function Toast({ title, description, status }: ToastProps) {
         setOpen(true);
       }, 100);
     };
-
     apperToast();
-
     return () => clearTimeout(timerRef.current);
   }, []);
 
   return (
-    <ToastUI.Provider swipeDirection="right">
+    <ToastUI.Provider swipeDirection="down">
       <ToastUI.Root
-        className={`ToastRoot bg-zinc-50 dark:bg-zinc-950 border ${
+        className={`ToastRoot bg-transparent border ${
           status === "success"
-            ? "border-green-400"
+            ? "border-green-400 w-[200px]"
             : status === "error"
-            ? "border-red-400"
-            : "border-yellow-400"
+            ? "border-red-400 w-[200px]"
+            : status === "info" 
+            ? "border-yellow-400 w-[200px]"
+            : "border-white max-w-[50px]"
         } p-2 rounded-lg flex items-center gap-3`}
         open={open}
         onOpenChange={setOpen}
       >
-        {status === "success" ? (
+        {status === "loading" && (
+          <div>
+            <LoadingClean />
+          </div>
+        )}
+
+        {status === "success" && (
           <div className="rounded-lg p-2 bg-toastSucess">
             <CheckCircledIcon width="30px" height="30px" />
           </div>
-        ) : status === "error" ? (
-          <div className="rounded-lg p-2 bg-toastError">
-            <CrossCircledIcon width="30px" height="30px" />
-          </div>
-        ) : (
+        )}
+
+        {status === "info" && (
           <div className="rounded-lg p-2 bg-toastMessage">
             <InfoCircledIcon width="30px" height="30px" />
           </div>
         )}
 
+        {status === "error" && (
+          <div className="rounded-lg p-2 bg-toastError">
+            <CrossCircledIcon width="30px" height="30px" />
+          </div>
+        )}
+
+       
         <div>
           <ToastUI.Title className="font-bold text-sm">{title}</ToastUI.Title>
 
@@ -69,7 +81,7 @@ export function Toast({ title, description, status }: ToastProps) {
           </ToastUI.Description>
         </div>
       </ToastUI.Root>
-      <ToastUI.Viewport className="ToastViewport" />
+      <ToastUI.Viewport className={`ToastViewport  ${status === "loading" ? "right-10 bottom-0" : "flex items-center w-full left-0 bottom-0"} `} />
     </ToastUI.Provider>
   );
 }

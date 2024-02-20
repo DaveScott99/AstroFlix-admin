@@ -6,8 +6,11 @@ import { Genre } from "../../../types/genre";
 import { Modal } from "../../modal";
 import { Toast } from "../../toast/toast";
 import { SelectComponent } from "../../select";
+import { useParams } from "react-router-dom";
 
 export function AddGenre() {
+  const params = useParams();
+  const currentMediaId = params["id"] as string;
   const [selectedGenre, setSelectedGenre] = React.useState<Genre>();
 
   const queryClient = useQueryClient();
@@ -15,10 +18,13 @@ export function AddGenre() {
   const {
     mutate,
     isSuccess,
+    isPending,
     error: errorAdd,
   } = useMutation({
-    mutationFn: () =>
-      ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${1}`, selectedGenre),
+    mutationFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${currentMediaId}&genreId=${selectedGenre?.id}`);
+    },
     onSuccess: () => {
       console.log("CREATED");
 
@@ -64,7 +70,7 @@ export function AddGenre() {
           </button>
         }
         content={
-          <div className="p-4 flex flex-col gap-8 w-64">
+          <div className="flex flex-col gap-8 w-[400px] mb-8">
             <span className="text-lg font-semibold">Add Genre</span>
 
             <SelectComponent
@@ -77,7 +83,7 @@ export function AddGenre() {
         }
         confirmBUtton={
           <span
-            className="px-2 py-1 rounded-md bg-green-600 font-normal"
+            className="p-2 rounded-md bg-green-600 font-normal"
             onClick={() => mutate()}
           >
             Update
@@ -85,13 +91,19 @@ export function AddGenre() {
         }
         cancelButton={
           <span
-            className="border px-2 py-1 rounded-md font-normal"
+            className="border p-2 rounded-md font-normal"
             onClick={() => setSelectedGenre(undefined)}
           >
             Cancel
           </span>
         }
       />
+
+      {
+        isPending && (
+          <Toast status="loading" />
+        )
+      }
 
       {isSuccess && (
         <Toast title="Success!" description="Genre Added" status="success" />
@@ -101,7 +113,7 @@ export function AddGenre() {
         <div className="mt-10">
           <Toast
             title="Error!"
-            description={errorGenre.message}
+            description={errorGenre}
             status="error"
           />
         </div>
@@ -109,7 +121,8 @@ export function AddGenre() {
 
       {errorAdd && (
         <div className="mt-10">
-          <Toast title="Error!" description={errorAdd.message} status="error" />
+          { /*@ts-ignore*/ }
+          <Toast title="Error!" description={errorAdd.response.data.message} status="error" />
         </div>
       )}
     </div>

@@ -3,15 +3,20 @@ import { ASTROFLIX_API } from "../../../helper/axios-instance";
 import { Genre } from "../../../types/genre";
 import { Loading } from "../../loading";
 import { Toast } from "../../toast/toast";
-import { RemoveGenre } from "./remove-genre";
 import { useQuery } from "@tanstack/react-query";
+import { RemoveDialog } from "../../remove-dialog";
+import { Trash2 } from "lucide-react";
 
 export function ListGenre() {
-
   const params = useParams();
-  const currentMedia = params['title'] as string;
+  const currentMedia = params["title"] as string;
+  const currentMediaId = params["id"] as string;
 
-  const { data: genres, isFetching, error } = useQuery<Genre[]>({
+  const {
+    data: genres,
+    isFetching,
+    error,
+  } = useQuery<Genre[]>({
     queryKey: ["genres-media"],
     queryFn: async () => {
       const response = await ASTROFLIX_API.get(
@@ -21,11 +26,11 @@ export function ListGenre() {
       return response.data;
     },
     refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 // 1minute
+    staleTime: 1000 * 60, // 1minute
   });
 
   return (
-    <div>
+    <div className="max-w-[500px] w-full">
       <table className="items-center w-full bg-transparent border-collapse relative">
         <thead>
           <tr>
@@ -35,9 +40,7 @@ export function ListGenre() {
             <th className="px-6 align-middle border border-t-0 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
               NAME
             </th>
-            <th className="px-4 align-middle border border-t-0 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-              ||
-            </th>
+            <th className="px-4 w-10 align-middle border border-t-0 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"></th>
           </tr>
         </thead>
 
@@ -61,7 +64,21 @@ export function ListGenre() {
                   {genre.name}
                 </td>
                 <td>
-                  <RemoveGenre mediaId={1} genreToRemove={genre} />
+                  <RemoveDialog
+                    iconTrigger={<Trash2 size={24} strokeWidth={1.75} />}
+                    cacheItens="genres-media"
+                    title={
+                      <span className="text-xl font-bold">Remove Genre</span>
+                    }
+                    description={
+                      <span>
+                        You're going to remove the genre "<b>{genre.name}</b>"
+                        from this media. Are you sure?
+                      </span>
+                    }
+                    pathDelete={`/media/movie/remove/genre?mediaId=${currentMediaId}&genreId=${genre.id}`}
+                    IdItemToRemove={genre.id}
+                  />
                 </td>
               </tr>
             ))}

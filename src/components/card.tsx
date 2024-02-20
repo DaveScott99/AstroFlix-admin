@@ -8,7 +8,7 @@ interface MediaProps {
 export function Card({ media }: MediaProps) {
 
   return (
-    <Link to={`/media/` + media.title}>
+    <Link to={`/media/${media.id}/${media.title}`}>
       <article className="max-w-[350px] min-w-[100px] w-full p-4 bg-slate-100 dark:bg-slate-950 border border-slate-300 border-opacity-20 rounded-lg cursor-pointer">
         <img
           src={media.poster.file}
