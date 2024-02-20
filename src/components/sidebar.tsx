@@ -1,18 +1,7 @@
-import { Link } from "react-router-dom";
-import LogoWhite from "../assets/Logo-solo-white.svg";
-import LogoLetters from "../assets/Logo-letters.svg";
-import {
-  ChevronFirst,
-  ChevronLast,
-  ChevronLeft,
-  ChevronRight,
-  Cog,
-  LifeBuoy,
-  MoreVertical,
-  PanelLeftOpen,
-  PanelRightOpen,
-} from "lucide-react";
+import { Cog, LifeBuoy, PanelLeftOpen, PanelRightOpen } from "lucide-react";
 import React, { createContext, useContext } from "react";
+import { Link } from "react-router-dom";
+import LogoLetters from "../assets/Logo-letters.svg";
 
 const SidebarContext = createContext<unknown>("");
 

@@ -4,6 +4,7 @@ import { ASTROFLIX_API } from "../helper/axios-instance";
 import { useQuery } from "@tanstack/react-query";
 import { MediaMinDTO } from "../types/mediaMinDTO";
 import { Loading } from "../components/loading";
+import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 
 export function Media() {
   const params = useParams();
@@ -41,13 +42,18 @@ export function Media() {
         <div className="w-full pt-24 bg-zinc-50 bg-opacity-20 dark:bg-slate-950 dark:bg-opacity-30">
           <div className="w-full bg-gradient-to-b from-transparent to-zinc-50 dark:bg-gradient-to-t dark:from-slate-950 dark:to-transparent ">
             <div className="mx-auto max-w-7xl flex items-center gap-6 py-8">
-              <div className="max-w-[300px] max-h-[450px] h-full w-full rounded-md">
-                <img
-                  src={media?.poster.file}
-                  alt="Media poster"
-                  className="rounded-md"
-                />
+              
+              <div className="max-w-[300px] max-h-[450px] h-full w-full shadow-2xl">
+                <AspectRatio.Root ratio={2/3}>
+                  <img
+                    src={media?.poster.file}
+                    alt="Media poster"
+                    className="max-w-[300] max-h-[450] w-full h-full bg-cover"
+                  />
+                </AspectRatio.Root>
               </div>
+
+
 
               <div className="flex flex-col gap-0.5">
                 <div className="flex justify-between">
