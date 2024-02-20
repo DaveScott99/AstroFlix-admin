@@ -1,7 +1,7 @@
 
 export function Header() {
   return (
-    <header className="w-full bg-transparent fixed top-0 py-4 px-24 flex justify-end items-center ">
+    <header className="w-full bg-transparent fixed top-0 py-4 px-24 flex justify-end items-center">
 
       {/* 
         <div>
@@ -14,9 +14,9 @@ export function Header() {
       */}
 
 
-      <div className=" flex gap-3 outline-2 rounded-md cursor-pointer ">
+      <div className=" flex gap-3 rounded-md cursor-pointer ">
         <img
-          className="rounded-md w-8 h-8"
+          className="rounded-md w-8 h-8 border-2"
           src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
           alt="Account image"
         />

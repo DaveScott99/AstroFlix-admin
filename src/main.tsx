@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Layout center colision_header>
+      <Layout center colision_header colision_sidebar>
         <Home />
       </Layout>
     ),
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
   {
     path: "/movie",
     element: (
-      <Layout center colision_header>
+      <Layout center colision_header colision_sidebar>
         <Movie />
       </Layout>
     ),
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   {
     path: "/create/movie",
     element: (
-      <Layout center colision_header>
+      <Layout center colision_header colision_sidebar>
         <CreateMovie />
       </Layout>
     ),
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
   {
     path: "/media/config/:id/:title/details",
     element: (
-      <Layout center colision_header>
+      <Layout center colision_header colision_sidebar >
         <ConfigMedia>
           <Details />
         </ConfigMedia>
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
   {
     path: "/media/config/:id/:title/genre",
     element: (
-      <Layout center colision_header>
+      <Layout center colision_header colision_sidebar>
         <ConfigMedia>
           <GenreConfig />
         </ConfigMedia>
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
   {
     path: "/media/config/:id/:title/logo",
     element: (
-      <Layout center colision_header>
+      <Layout center colision_header colision_sidebar>
         <ConfigMedia>
           <Logo />
         </ConfigMedia>

@@ -26,7 +26,7 @@ export function Movie() {
       {isFetching ? (
         <Loading />
       ) : (
-        <section className="grid grid-cols-4 gap-6">
+        <section className="grid grid-cols-5 gap-2">
           {movies?.map((movie: MediaMinDTO) => (
             <Card key={movie.id} media={movie} />
           ))}
@@ -34,7 +34,7 @@ export function Movie() {
       )}
 
       {error?.message && (
-        <div className="mt-10">
+        <div>
           <Toast title="Error!" description={error?.message} status="error" />
         </div>
       )}

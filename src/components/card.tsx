@@ -35,25 +35,6 @@ export function Card({ media }: MediaProps) {
             </span>
           </div>
         </div>
-
-        <div className="flex gap-2 justify-between mt-4">
-          <div>
-            <span className="border px-1 font-normal text-xs opacity-75 rounded-md">
-              PG-13
-            </span>
-          </div>
-
-          <div className="flex gap-1">
-            {media.genres?.map((genre) => (
-              <span
-                key={genre.id}
-                className="text-sm font-normal opacity-75  border px-1 rounded-md"
-              >
-                {genre.name}
-              </span>
-            ))}
-          </div>
-        </div>
       </article>
     </Link>
   );
