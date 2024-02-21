@@ -26,11 +26,8 @@ export function Media() {
     staleTime: 1000 * 60, // 1 minute
   });
 
-  if (isFetching) 
-    return <Loading />
 
   return (
-    <div>
       <div
         className="w-full"
         style={{
@@ -39,16 +36,16 @@ export function Media() {
           backgroundImage: `url(https://image.tmdb.org/t/p/original/yyFc8Iclt2jxPmLztbP617xXllT.jpg)`,
         }}
       >
-        <div className="w-full pt-24 bg-zinc-50 bg-opacity-20 dark:bg-slate-950 dark:bg-opacity-30">
-          <div className="w-full bg-gradient-to-b from-transparent to-zinc-50 dark:bg-gradient-to-t dark:from-slate-950 dark:to-transparent ">
-            <div className="mx-auto max-w-7xl flex items-center gap-6 py-8">
+        <div className="w-full pt-24 dark:bg-slate-950 dark:bg-opacity-30">
+          <div className="w-full bg-gradient-to-t from-zinc-50 to-transparent dark:bg-gradient-to-t dark:from-slate-950 dark:to-transparent ">
+            <div className="mx-auto min-w-28 max-w-4xl flex items-center gap-6 py-8">
               
-              <div className="max-w-[300px] max-h-[450px] h-full w-full shadow-2xl">
+              <div className="max-w-[250px] w-full shadow-2xl border-dashed border-2 p-1 rounded-lg">
                 <AspectRatio.Root ratio={2/3}>
                   <img
-                    src={media?.poster.file}
+                    src="https://image.tmdb.org/t/p/original/qhb1qOilapbapxWQn9jtRCMwXJF.jpg"
                     alt="Media poster"
-                    className="max-w-[300] max-h-[450] w-full h-full bg-cover"
+                    className="h-auto max-w-full bg-cover rounded-lg"
                   />
                 </AspectRatio.Root>
               </div>
@@ -58,14 +55,16 @@ export function Media() {
               <div className="flex flex-col gap-0.5">
                 <div className="flex justify-between">
                   <h2 className="font-semibold text-3xl">
-                    {currentMediaTitle} <span className="font-light">({media?.releaseYear})</span>
+                   Wonka <span className="font-light">(2023)</span>
                   </h2>
 
+                  {/* 
                   <Link to={`/media/config/${currentMediaId}/${currentMediaTitle}/details`} >
                     <button className="border p-1 rounded-lg">
                       <GearIcon width="30px" height="30px" />
                     </button>
                   </Link>
+                  */}
                 </div>
 
 
@@ -73,22 +72,25 @@ export function Media() {
                   <div className="border px-1 rounded-sm text-sm">PG</div>
 
                   <div className="flex gap-1 text-sm">
-                    <span>12/07/2023</span>
 
-                    {media?.genres.map((genre) => (
+                      <span>Comedy</span>
+                      <span>Family</span>
+
+
+                    {/*media?.genres.map((genre) => (
                       <span key={genre.id}>{genre.name}</span>
-                    ))}
+                    ))*/}
                 
 
                     <span>2h</span> {/* RUNTIME */}
                   </div>
                 </div>
 
-                <div className="mt-6 opacity-75">
+                <div className="mt-6 opacity-95 border-dashed border-2 rounded-lg p-1">
                   <em>Every good thing in this world started with a dream. </em>
                 </div>
 
-                <div className="mt-3">
+                <div className="mt-3 border-dashed border-2 rounded-lg p-1">
                   <h3 className="font-semibold text-lg mb-1">Overview</h3>
                   <span className="text-sm">
                     Willy Wonka – chock-full of ideas and determined to change
@@ -102,6 +104,5 @@ export function Media() {
           </div>
         </div>
       </div>
-    </div>
   );
 }

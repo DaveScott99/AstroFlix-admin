@@ -14,6 +14,7 @@ import { queryClient } from "./services/queryClient";
 import { GenreConfig } from "./components/edit-media/genre/genre-config";
 import { Details } from "./components/edit-media/details/details";
 import { Logo } from "./components/edit-media/art/logo";
+import { EditMedia } from "./pages/edit-media";
 
 const router = createBrowserRouter([
   {
@@ -44,10 +45,10 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/media/:id/:title",
+    path: "/media/:title/edit",
     element: (
       <Layout>
-        <Media />
+        <EditMedia />
       </Layout>
     ),
     errorElement: <NotFoundPage />,
