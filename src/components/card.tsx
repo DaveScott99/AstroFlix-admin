@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { MediaMinDTO } from "../types/mediaMinDTO";
-import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 
 interface MediaProps {
   media: MediaMinDTO;
@@ -10,13 +9,11 @@ export function Card({ media }: MediaProps) {
   return (
     <Link to={`/media/${media.id}/${media.title}`}>
       <article className="max-w-[350px] min-w-[140px] w-full p-4 bg-slate-100 dark:bg-slate-950 border border-slate-300 border-opacity-20 rounded-lg cursor-pointer">
-        <AspectRatio.Root ratio={2/3}>
-          <img
-            src={media.poster.file}
-            alt={media.poster.name}
-            className="max-w-[300] max-h-[450] w-full h-full bg-cover"
-          />
-        </AspectRatio.Root>
+        <img
+          src={media.poster.file}
+          alt={media.poster.name}
+          className="aspect-2/3 h-auto max-w-full bg-cover rounded-lg"
+        />
 
         <div className="items-center mt-4">
           <h2 className="font-semibold text-base ">{media.title}</h2>

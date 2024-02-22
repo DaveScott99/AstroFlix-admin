@@ -1,14 +1,11 @@
-
 interface TitleProps {
-    title: string
+  text: string;
 }
 
-export function Title({ title }: TitleProps) {
-    return (
-        <div className="flex justify-between">
-            <h1 className="font-semibold text-3xl">
-            {title} <span className="font-light">(2023)</span>
-            </h1>
-        </div>
-    )
+export function Title({ text }: TitleProps) {
+  return (
+    <div className="max-w-2xl">
+      <h1 className="font-semibold md:text-4xl text-xl">{text}</h1>
+    </div>
+  );
 }

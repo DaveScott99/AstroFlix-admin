@@ -13,6 +13,9 @@ export default {
         'toastSucess': 'rgba(46, 200, 98, .20)',
         'toastError': 'rgba(228, 0, 35, .20)',
         'toastMessage': ''
+      },
+      aspectRatio: {
+        '2/3': '2 / 3',
       }
     },
   },
