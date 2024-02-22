@@ -11,7 +11,8 @@ interface SidebarItemProps {
   text: string;
   active?: any;
   alert?: any;
-  path: string;
+  path?: string | "";
+  setTab?: any
 }
 
 export function Sidebar({ children }: SidebarProps) {
@@ -49,10 +50,10 @@ export function Sidebar({ children }: SidebarProps) {
   );
 }
 
-export function SidebarItem({ icon, text, active, path }: SidebarItemProps) {
+export function SidebarItem({ icon, text, active, setTab }: SidebarItemProps) {
   return (
-    <Link to={path}>
       <li
+      onClick={setTab}
         className={`
           relative flex py-4 px-5 
           rounded-md cursor-pointer
@@ -73,6 +74,5 @@ export function SidebarItem({ icon, text, active, path }: SidebarItemProps) {
           {text}
         </div>
       </li>
-    </Link>
   );
 }
