@@ -1,6 +1,6 @@
 
 interface PosterProps {
-  url: string;
+  url: string | undefined;
 }
 
 export function Poster({ url }: PosterProps) {

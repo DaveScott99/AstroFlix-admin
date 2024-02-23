@@ -1,5 +1,5 @@
 interface ReleaseYearProps {
-  year: string;
+  year: number | undefined;
 }
 
 export function ReleaseYear({ year }: ReleaseYearProps) {

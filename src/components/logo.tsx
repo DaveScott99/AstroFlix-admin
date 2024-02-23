@@ -1,10 +1,14 @@
-export function Logo() {
+interface LogoProps {
+  link: string | undefined;
+}
+
+export function Logo({ link }: LogoProps) {
   return (
-    <div className="max-w-[250px] w-full shadow-2xl border-dashed border-2 p-1 rounded-lg">
+    <div className="max-w-[350px] w-full  p-1 rounded-lg">
       <img
-        src="https://image.tmdb.org/t/p/original/4MdzluUXHjgVRwRRNh5vSPq0TB5.png"
+        src={link}
         alt="Media Logo"
-        className="aspect-square h-auto max-w-full bg-cover rounded-lg"
+        className="aspect-4/3 h-auto max-w-full bg-cover rounded-lg"
       />
     </div>
   );

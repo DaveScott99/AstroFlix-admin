@@ -12,7 +12,6 @@ const UtilityAreaProvider = ({children} : {children: React.ReactNode}) => {
     const [component, setComponent] = React.useState<React.ReactNode | null>(null);
 
     const selectComponent = (component: React.ReactNode) => {
-        console.log("UTILITY PROVIDER")
         setComponent(component);
     }
 

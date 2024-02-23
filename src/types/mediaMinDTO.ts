@@ -3,6 +3,7 @@ import { Genre } from "./genre";
 
 export type MediaMinDTO = {
   id: number;
+  idTMBD: number;
   title: string;
   logo: string;
   releaseYear: number;

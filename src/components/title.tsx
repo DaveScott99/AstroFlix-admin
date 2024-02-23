@@ -1,5 +1,5 @@
 interface TitleProps {
-  text: string;
+  text: string | undefined;
 }
 
 export function Title({ text }: TitleProps) {
