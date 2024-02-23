@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
-        path: "/dashboard",
+        path: "/movie",
         element: <Movie />,
         errorElement: <NotFoundPage />,
       },
