@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { MediaMinDTO } from "../types/mediaMinDTO";
+import { Media } from "../types/media";
 
 interface MediaProps {
-  media: MediaMinDTO;
+  media: Media;
 }
 
 export function Card({ media }: MediaProps) {

@@ -1,10 +1,10 @@
 import { GearIcon } from "@radix-ui/react-icons";
-import { MediaMinDTO } from "../types/mediaMinDTO";
+import { Media } from "../types/Media";
 import { Loading } from "./loading";
 import { Link } from "react-router-dom";
 
 interface ListMediasProps {
-  listMedias: MediaMinDTO[] | undefined | null;
+  listMedias: Media[] | undefined | null;
   isFetching: any;
 }
 

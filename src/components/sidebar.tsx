@@ -20,7 +20,7 @@ interface SidebarItemProps {
 
 export function Sidebar() {
   return (
-    <aside className="h-screen fixed  ">
+    <aside className="h-screen fixed z-50">
       <h3 className="hidden">Sidebar</h3>
       <nav className={`h-full flex flex-col gap-4`}>
         <div className="p-4  flex justify-center items-center">
@@ -58,7 +58,7 @@ export function Sidebar() {
           <SidebarItem
             icon={<Plus size={24} strokeWidth={1.75} absoluteStrokeWidth />}
             text="Create"
-            path="#"
+            path="/create/movie"
           />
         </ul>
 
@@ -94,7 +94,7 @@ export function SidebarItem({ icon, text, active, path }: SidebarItemProps) {
         <div
           className={`
               absolute left-full rounded-md px-2 py-1 ml-6
-              bg-transparent border text-sm
+              bg-zinc-950 border text-sm
               invisible opacity-20 -translate-x-3 transition-all
               group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
           `}

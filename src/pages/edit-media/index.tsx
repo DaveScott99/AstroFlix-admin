@@ -10,10 +10,11 @@ import { UtilityAreaContext } from "../../contexts/utility-area";
 import { Details } from "./details";
 import { ASTROFLIX_API } from "../../helper/axios-instance";
 import { useParams } from "react-router-dom";
-import { MediaMinDTO } from "../../types/mediaMinDTO";
+import { Media } from "../../types/media";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingFull } from "../../components/loading-full";
 import { EditPoster } from "./edit-poster";
+import { Toast } from "../../components/toast/toast";
 
 export function EditMedia() {
   const params = useParams();
@@ -24,8 +25,9 @@ export function EditMedia() {
   const {
     data: media,
     isFetching,
+    isError,
     error,
-  } = useQuery<MediaMinDTO>({
+  } = useQuery<Media>({
     queryKey: ["media"],
     queryFn: async () => {
       const response = await ASTROFLIX_API.get(
@@ -41,12 +43,12 @@ export function EditMedia() {
   return (
     <>
       <div className="w-full">
-        <Backdrop url="https://image.tmdb.org/t/p/original/yyFc8Iclt2jxPmLztbP617xXllT.jpg">
+        <Backdrop url={media?.backdrop.file}>
           <div
             className="mx-auto w-full md:flex-row flex flex-col items-center justify-center lg:items-center gap-4 p-4 pt-16 
           bg-gradient-to-t from-zinc-50 to-transparent text-white dark:bg-gradient-to-t dark:from-slate-950 dark:to-transparent"
           >
-            <div onClick={() => selectComponent(<EditPoster idTMBD={media?.idTMBD} />)} className="cursor-pointer">
+            <div onClick={() => selectComponent(<EditPoster media={media} />)} className="cursor-pointer">
               <Poster url={media?.poster.file} />
             </div>
 
@@ -65,14 +67,9 @@ export function EditMedia() {
                   <Settings size={24} strokeWidth={1.75} absoluteStrokeWidth />
                 </div>
               </div>
-              <Tagline text="Every good thing in this world started with a dream." />
+              <Tagline text={media?.tagline} />
               <Overview
-                text="
-                    Willy Wonka – chock-full of ideas and determined to change
-                    the world one delectable bite at a time – is proof that the
-                    best things in life begin with a dream, and if you’re lucky
-                    enough to meet Willy Wonka, anything is possible.
-                    "
+                text={media?.overview}
               />
             </div>
           </div>
@@ -82,6 +79,11 @@ export function EditMedia() {
       </div>
 
       {isFetching && <LoadingFull />}
+
+      
+      {isError && (
+        <Toast title="Error" description={error.message} status="error" />
+      )}
     </>
   );
 }

@@ -1,5 +1,5 @@
 interface TaglineProps {
-  text: string;
+  text: string | undefined;
 }
 
 export function Tagline({ text }: TaglineProps) {

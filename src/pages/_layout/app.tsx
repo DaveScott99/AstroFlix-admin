@@ -19,7 +19,7 @@ export function AppLayout() {
         className="flex gap-1"
       >
         <Panel
-          className="relative border border-zinc-950/15 dark:border-white/15 p-2 rounded-lg flex justify-center bg-slate-950"
+          className="relative border border-zinc-950/15 dark:border-white/15 p-2 rounded-lg flex justify-center bg-transparent"
           minSize={3}
           maxSize={3}
         >
@@ -27,7 +27,7 @@ export function AppLayout() {
         </Panel>
         <PanelResizeHandle disabled />
         <Panel
-          className="border relative border-zinc-950/15 dark:border-white/15 p-2 rounded-lg flex justify-center bg-slate-950"
+          className="border relative border-zinc-950/15 dark:border-white/15 p-2 rounded-lg flex justify-center bg-transparent"
           minSize={15}
           style={{
             scrollbarColor: "#475569 #020617",
@@ -37,7 +37,7 @@ export function AppLayout() {
         </Panel>
         <PanelResizeHandle />
         <Panel
-          className="border relative border-zinc-950/15 dark:border-white/15 rounded-lg flex justify-center bg-slate-950 overflow-auto"
+          className="border relative border-zinc-950/15 dark:border-white/15 rounded-lg flex justify-center bg-transparent overflow-auto"
           minSize={50}
           style={{
             scrollbarColor: "#475569 #020617",

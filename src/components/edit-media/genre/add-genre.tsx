@@ -23,7 +23,7 @@ export function AddGenre() {
   } = useMutation({
     mutationFn: async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${currentMediaId}&genreId=${selectedGenre?.id}`);
+      await ASTROFLIX_API.post(`/media/movie/add/genre?mediaId=${currentMediaId}&genreId=${selectedGenre?.id}`);
     },
     onSuccess: () => {
       console.log("CREATED");

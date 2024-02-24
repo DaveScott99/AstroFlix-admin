@@ -2,7 +2,7 @@ import { Card } from "../components/card";
 import { Toast } from "../components/toast/toast";
 import { ASTROFLIX_API } from "../helper/axios-instance";
 import { useQuery } from "@tanstack/react-query";
-import { MediaMinDTO } from "../types/mediaMinDTO";
+import { Media } from "../types/Media";
 import { LoadingFull } from "../components/loading-full";
 
 export function Movie() {
@@ -10,7 +10,7 @@ export function Movie() {
     data: movies,
     isFetching,
     error,
-  } = useQuery<MediaMinDTO[]>({
+  } = useQuery<Media[]>({
     queryKey: ["movies"],
     queryFn: async () => {
       const response = await ASTROFLIX_API.get("/media/movie/all");
@@ -25,7 +25,7 @@ export function Movie() {
     <>
       <div>
         <section className="grid grid-cols-5 gap-2">
-          {movies?.map((movie: MediaMinDTO) => (
+          {movies?.map((movie: Media) => (
             <Card key={movie.id} media={movie} />
           ))}
         </section>

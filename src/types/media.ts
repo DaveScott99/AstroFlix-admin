@@ -1,12 +1,18 @@
+import { ArtDTO } from "./artDTO";
 import { Genre } from "./genre";
 
 export interface Media {
     id: number;
+    idTMDB: number;
     title: string;
-    logo: string;
-    parentalAdvisory: string;
-    genre: Genre[];
-    year: number;
-    language: string;
-    status: boolean;
+    runtime: number;
+    overview: string;
+    tagline: string;
+    genres: Genre[];
+    releaseYear: number;
+    active: boolean;
+    adult: boolean;
+    poster: ArtDTO;
+    logo: ArtDTO;
+    backdrop: ArtDTO;
 }

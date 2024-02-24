@@ -1,5 +1,5 @@
 interface OverviewProps {
-  text: string;
+  text: string | undefined;
 }
 
 export function Overview({ text }: OverviewProps) {

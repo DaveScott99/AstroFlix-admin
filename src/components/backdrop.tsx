@@ -1,6 +1,6 @@
 interface BackdropProps {
   children: React.ReactNode;
-  url: string;
+  url: string | undefined;
 }
 
 export function Backdrop({ children, url }: BackdropProps) {

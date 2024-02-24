@@ -38,11 +38,11 @@ export function Toast({ title, description, status }: ToastProps) {
       <ToastUI.Root
         className={`ToastRoot bg-transparent border ${
           status === "success"
-            ? "border-green-400 w-[200px]"
+            ? "border-green-400"
             : status === "error"
-            ? "border-red-400 w-[200px]"
+            ? "border-red-400 "
             : status === "info" 
-            ? "border-yellow-400 w-[200px]"
+            ? "border-yellow-400 "
             : "border-white max-w-[50px]"
         } p-2 rounded-lg flex items-center gap-3`}
         open={open}
