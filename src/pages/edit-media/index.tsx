@@ -1,45 +1,26 @@
 import { Camera, Plus } from "lucide-react";
+import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { Backdrop } from "../../components/backdrop";
+import { LoadingFull } from "../../components/loading-full";
 import { Overview } from "../../components/overview";
 import { Poster } from "../../components/poster";
 import { ReleaseYear } from "../../components/realease-year";
 import { Tagline } from "../../components/tagline";
 import { Title } from "../../components/title";
-import React, { useContext } from "react";
-import { UtilityAreaContext } from "../../contexts/utility-area";
-import { Details } from "./details";
-import { ASTROFLIX_API } from "../../helper/axios-instance";
-import { useParams } from "react-router-dom";
-import { Media } from "../../types/media";
-import { useQuery } from "@tanstack/react-query";
-import { LoadingFull } from "../../components/loading-full";
 import { Toast } from "../../components/toast/toast";
+import { UtilityAreaContext } from "../../contexts/utility-area";
+import { useFetchMediaByTitle } from "../../queries/media";
+import { Details } from "./details";
 import { CreateImage } from "./images/create-image";
 import { ListImages } from "./images/list-images";
 
 export function EditMedia() {
   const params = useParams();
   const currentMediaTitle = params["title"] as string;
+  const { data:media, isFetching, isError, error } = useFetchMediaByTitle(currentMediaTitle);
 
   const { selectComponent } = useContext(UtilityAreaContext);
-
-  const {
-    data: media,
-    isFetching,
-    isError,
-    error,
-  } = useQuery<Media>({
-    queryKey: ["media"],
-    queryFn: async () => {
-      const response = await ASTROFLIX_API.get(
-        "/media/movie/find?title=" + currentMediaTitle
-      );
-
-      return response.data;
-    },
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60, // 1 minute
-  });
 
   return (
     <React.Fragment>
@@ -61,7 +42,7 @@ export function EditMedia() {
                     <ListImages
                       media_id={media?.id}
                       title_header="Backdrops"
-                      list_path={`/media/art/find/backdrop?mediaId= + ${media?.id}`}
+                      list_path={`/media/art/find/backdrop?mediaId=${media?.id}`}
                       type_image="backdrop"
                       action_header={
                         <button
@@ -96,7 +77,7 @@ export function EditMedia() {
                       <ListImages
                         media_id={media?.id}
                         title_header="Posters"
-                        list_path={`/media/art/find/poster?mediaId=+ ${media?.id}`}
+                        list_path={`/media/art/find/poster?mediaId=${media?.id}`}
                         type_image="poster"
                         action_header={
                           <button

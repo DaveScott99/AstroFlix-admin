@@ -8,8 +8,6 @@ interface MediaProps {
 
 export function Card({ media }: MediaProps) {
 
-  console.log(media);
-
   return (
     <Link to={`/media/${media.title}/edit`}>
       <article className="w-full p-2 bg-transparent border border-zinc-700/50 rounded-md cursor-pointer">

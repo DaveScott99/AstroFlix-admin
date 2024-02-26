@@ -1,26 +1,15 @@
 import { Card } from "../components/card";
 import { Toast } from "../components/toast/toast";
-import { ASTROFLIX_API } from "../helper/axios-instance";
-import { useQuery } from "@tanstack/react-query";
 import { LoadingFull } from "../components/loading-full";
 import { Media } from "../types/media";
+import { useFetchListMedias } from "../queries/media";
 
 export function Movie() {
-  const {
-    data: movies,
-    isFetching,
-    error,
-  } = useQuery<Media[]>({
-    queryKey: ["movies"],
-    queryFn: async () => {
-      const response = await ASTROFLIX_API.get("/media/movie/all");
 
-      return response.data.content;
-    },
-    refetchOnWindowFocus: false,
-    staleTime: 1000 * 60, // 1 minute
-  });
+  const { data:movies, isError, error, isFetching } = useFetchListMedias();
 
+  console.log(movies);
+  
   return (
     <>
       <div>
@@ -30,7 +19,7 @@ export function Movie() {
           ))}
         </section>
 
-        {error?.message && (
+        {isError && (
           <div>
             <Toast title="Error!" description={error?.message} status="error" />
           </div>
