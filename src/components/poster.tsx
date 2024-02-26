@@ -1,16 +1,19 @@
+import React from "react";
 
 interface PosterProps {
   url: string | undefined;
+  aspect_ratio: number | undefined;
 }
 
-export function Poster({ url }: PosterProps) {
+export function Poster({ url, aspect_ratio }: PosterProps) {
   return (
-    <div className="max-w-[300px] w-full  p-1 rounded-lg">
+    <React.Fragment>
       <img
-        src={`https://image.tmdb.org/t/p/original/`+url}
+        src={url}
         alt="Media poster"
-        className="aspect-2/3 h-auto max-w-full bg-cover rounded-lg"
+        style={{ aspectRatio: aspect_ratio }}
+        className="h-auto max-w-full bg-cover rounded-lg"
       />
-    </div>
+    </React.Fragment>
   );
 }

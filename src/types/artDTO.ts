@@ -1,6 +1,7 @@
 export type ArtDTO = {
     id: number;
     name: string;
-    file: string;
+    filePath: string;
     type: string;
+    aspectRatio: number;
 }

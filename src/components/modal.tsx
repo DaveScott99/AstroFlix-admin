@@ -22,7 +22,7 @@ export function Modal({
       <Dialog.Portal>
         <Dialog.Overlay className="inset-0 bg-black/50 fixed" />
 
-        <Dialog.Content className={`z-10 p-8 dark:bg-slate-950 rounded-md fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border`}>
+        <Dialog.Content className={`z-10 p-5 dark:bg-zinc-950 rounded-md fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border border-zinc-50/40`}>
           {content}
 
           <div className="flex gap-2 justify-end">

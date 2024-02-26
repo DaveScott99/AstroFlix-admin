@@ -7,9 +7,9 @@ export function Submenu() {
     useContext(UtilityAreaContext);
 
   return (
-    <div className="w-full flex flex-col justify-center items-center  ">
+    <div className="w-full h-full  ">
       <ContextMenu.Root>
-        <ContextMenu.Trigger className="w-full h-full flex items-center flex-col gap-8 ">
+        <ContextMenu.Trigger className="w-full h-full flex flex-col gap-4 ">
           {headerUtilityArea && (
             <div className="w-full">{headerUtilityArea}</div>
           )}
@@ -23,10 +23,9 @@ export function Submenu() {
               </span>
             </div>
           ) : (
-            <div className="w-full h-full overflow-auto">
+            <div className="w-full h-full overflow-auto overflow-x-hidden ">
               {component}
             </div>
-            
           )}
         </ContextMenu.Trigger>
 

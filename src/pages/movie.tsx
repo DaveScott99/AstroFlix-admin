@@ -2,8 +2,8 @@ import { Card } from "../components/card";
 import { Toast } from "../components/toast/toast";
 import { ASTROFLIX_API } from "../helper/axios-instance";
 import { useQuery } from "@tanstack/react-query";
-import { Media } from "../types/Media";
 import { LoadingFull } from "../components/loading-full";
+import { Media } from "../types/media";
 
 export function Movie() {
   const {
@@ -24,7 +24,7 @@ export function Movie() {
   return (
     <>
       <div>
-        <section className="grid grid-cols-5 gap-2">
+        <section className="grid grid-cols-5 gap-2 p-2">
           {movies?.map((movie: Media) => (
             <Card key={movie.id} media={movie} />
           ))}

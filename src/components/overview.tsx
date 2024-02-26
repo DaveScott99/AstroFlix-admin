@@ -4,9 +4,9 @@ interface OverviewProps {
 
 export function Overview({ text }: OverviewProps) {
   return (
-    <div className="p-1 max-w-2xl">
+    <div className="max-w-2xl ">
       <h3 className="font-semibold text-base mb-1">Overview</h3>
-      <div className="rounded-lg p-1">
+      <div className="rounded-lg">
         <span className="text-sm">{text}</span>
       </div>
     </div>

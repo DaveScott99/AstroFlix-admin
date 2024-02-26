@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom";
 import { Media } from "../types/media";
+import { Poster } from "./poster";
 
 interface MediaProps {
   media: Media;
 }
 
 export function Card({ media }: MediaProps) {
+
+  console.log(media);
+
   return (
     <Link to={`/media/${media.title}/edit`}>
-      <article className="max-w-[350px] min-w-[140px] w-full p-4 bg-slate-100 dark:bg-slate-950 border border-slate-300 border-opacity-20 rounded-lg cursor-pointer">
-        <img
-          src={media.poster.file}
-          alt={media.poster.name}
-          className="aspect-2/3 h-auto max-w-full bg-cover rounded-lg"
-        />
+      <article className="w-full p-2 bg-transparent border border-zinc-700/50 rounded-md cursor-pointer">
+        <Poster url={media.poster.filePath} aspect_ratio={media.poster.aspectRatio} />
 
         <div className="items-center mt-4">
           <h2 className="font-semibold text-base ">{media.title}</h2>

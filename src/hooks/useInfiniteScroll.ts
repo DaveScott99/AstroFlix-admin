@@ -10,6 +10,7 @@ export const useInfiniteScroll = (path:string) => {
         error,
         fetchNextPage,
         isFetching,
+        isError
       } = useInfiniteQuery({
         queryKey: ["posters"],
         queryFn: async ({ pageParam }) => {
@@ -40,6 +41,7 @@ export const useInfiniteScroll = (path:string) => {
     return {
         data,
         error,
+        isError,
         isFetching,
         IntersectionObserver
     }
