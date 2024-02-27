@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ASTROFLIX_API } from "../helper/axios-instance";
 
-export const useApiGet = (path:string, query_key:string) => {
+export const useApiGet = (path:string, query_key:string[]) => {
 
     const {
         data,

@@ -7,12 +7,15 @@ import { LoadingFull } from "../../../components/loading-full";
 import { Toast } from "../../../components/toast/toast";
 import { ArtDTO } from "../../../types/artDTO";
 import * as ContextMenu from "@radix-ui/react-context-menu";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { Media } from "../../../types/media";
+import { useFetchImagesByMedia } from "../../../queries/media";
 
 
 interface ListImagesProps {
   list_path: string;
   type_image: string;
-  media_id: number | undefined;
   title_header: string;
   action_header?: any;
 }
@@ -20,19 +23,23 @@ interface ListImagesProps {
 export function ListImages({
   list_path,
   type_image,
-  media_id,
   title_header,
   action_header,
 }: ListImagesProps) {
+  const params = useParams();
+  const currentMediaTitle = params["title"] as string;
+
   const { selectHeaderUtilityArea } = useContext(UtilityAreaContext);
   const [ selectedImage, setSelectedImage ] = React.useState<number>();
+  const queryClient = useQueryClient();
+  const currentMedia = queryClient.getQueryData<Media>(['current-media', currentMediaTitle]);
 
   const {
     data: images,
     error,
     isError,
     isFetching,
-  } = useApiGet(list_path, "images-media");
+  } = useFetchImagesByMedia(list_path, currentMediaTitle);
 
   const {
     mutate,
@@ -41,8 +48,8 @@ export function ListImages({
     isPending,
     isSuccess: isSuccessSelectImage,
   } = useApiMutate(
-    `/media/art/select/image?mediaId=${media_id}&imageId=${selectedImage}&type=${type_image}`,
-    "media"
+    `/media/art/select/image?mediaId=${currentMedia?.id}&imageId=${selectedImage}&type=${type_image}`,
+    "current-media"
   );
 
   const handleSelectImage = (idImage: number) => {

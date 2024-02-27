@@ -4,10 +4,12 @@ import { LoadingClean } from "../../../components/loading-clean";
 import { Modal } from "../../../components/modal";
 import { Toast } from "../../../components/toast/toast";
 import { UtilityAreaContext } from "../../../contexts/utility-area";
-import { useApiMutate } from "../../../hooks/useApiMutate";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScroll";
 import { Image } from "../../../types/image";
 import { Media } from "../../../types/media";
+import { useMutateCreateImage } from "../../../queries/media";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 
 interface CreateImageProps {
   media: Media | undefined;
@@ -15,8 +17,15 @@ interface CreateImageProps {
 }
 
 export function CreateImage({ media, type }: CreateImageProps) {
-  const { selectHeaderUtilityArea } = useContext(UtilityAreaContext);
+  const params = useParams();
+  const queryClient = useQueryClient();
   const [selectedImage, setSelectedImage] = React.useState<string>();
+  const { selectHeaderUtilityArea } = useContext(UtilityAreaContext);
+  const currentMediaTitle = params["title"] as string;
+  const currentMedia = queryClient.getQueryData<Media>([
+    "current-media",
+    currentMediaTitle,
+  ]);
 
   const {
     data: images,
@@ -33,10 +42,7 @@ export function CreateImage({ media, type }: CreateImageProps) {
     isError: isErrorCreate,
     isPending,
     isSuccess: isSuccessCreate,
-  } = useApiMutate(
-    `/media/art/create?idMedia=${media?.id}&titleMedia=${media?.title}&idMediaTmdb=${media?.idTMDB}&filePath=${selectedImage}&type=${type}`,
-    "images-media"
-  );
+  } = useMutateCreateImage(currentMedia, selectedImage, type);
 
   const handleCreateImage = (file_path: string) => {
     setSelectedImage(file_path);

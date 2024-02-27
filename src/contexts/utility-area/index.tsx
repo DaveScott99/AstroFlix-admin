@@ -1,32 +1,58 @@
 import React from "react";
 
 type UtilityAreaContextProps = {
-    headerUtilityArea: React.ReactNode | null;
-    component: React.ReactNode | null;
-    selectComponent: (component: React.ReactNode) => void;
-    selectHeaderUtilityArea: (headerUtilityArea: React.ReactNode) => void;
-}
+  components: React.ReactNode[] | [];
+  headerUtilityArea: React.ReactNode | null;
+  push: (component: React.ReactNode) => void;
+  previus: () => void;
+  selectHeaderUtilityArea: (headerUtilityArea: React.ReactNode) => void;
+};
 
-const UtilityAreaContext = React.createContext<UtilityAreaContextProps>({} as UtilityAreaContextProps);
+const UtilityAreaContext = React.createContext<UtilityAreaContextProps>(
+  {} as UtilityAreaContextProps
+);
 
-const UtilityAreaProvider = ({children} : {children: React.ReactNode}) => {
+const UtilityAreaProvider = ({ children }: { children: React.ReactNode }) => {
+  const [headerUtilityArea, setHeaderUtility] = React.useState<React.ReactNode | null>(null);
+  const [components, setComponents] = React.useState<React.ReactNode[]>([]);
 
-    const [headerUtilityArea, setHeaderUtility] = React.useState<React.ReactNode | null>(null);
-    const [component, setComponent] = React.useState<React.ReactNode | null>(null);
-
-    const selectComponent = (component: React.ReactNode) => {
-        setComponent(component);
+  const push = (newComponent: React.ReactNode) => {
+   // Verifica se o componente já está na pilha
+   if (!components.includes(newComponent)) {
+        setComponents([...components, newComponent]);
     }
-
-    const selectHeaderUtilityArea = (headerUtilityArea: React.ReactNode) => {
-        setHeaderUtility(headerUtilityArea);
+    else {
+        console.log("EXISTS")
     }
+  };
 
-    return (
-        <UtilityAreaContext.Provider value={{component, headerUtilityArea, selectComponent, selectHeaderUtilityArea}}>
-            <>{children}</>
-        </UtilityAreaContext.Provider>
-    )
-}
+  const previus = () => {
+    setComponents((prevComponents) => {
+      if (prevComponents.length > 1) {
+        return prevComponents.slice(0, -1);
+      } else {
+        return [];
+      }
+    });
+  };
+
+  const selectHeaderUtilityArea = (headerUtilityArea: React.ReactNode) => {
+    setHeaderUtility(headerUtilityArea);
+  };
+
+  return (
+    <UtilityAreaContext.Provider
+      value={{
+        components,
+        headerUtilityArea,
+        push,
+        previus,
+        selectHeaderUtilityArea,
+      }}
+    >
+      <>{children}</>
+    </UtilityAreaContext.Provider>
+  );
+};
 
 export { UtilityAreaProvider, UtilityAreaContext };

@@ -20,7 +20,7 @@ export function EditMedia() {
   const currentMediaTitle = params["title"] as string;
   const { data:media, isFetching, isError, error } = useFetchMediaByTitle(currentMediaTitle);
 
-  const { selectComponent } = useContext(UtilityAreaContext);
+  const { push } = useContext(UtilityAreaContext);
 
   return (
     <React.Fragment>
@@ -38,9 +38,8 @@ export function EditMedia() {
               <button
                 className="border rounded-md px-2 py-1 cursor-pointer flex gap-2 text-sm items-center hover:bg-zinc-950/50 transition"
                 onClick={() =>
-                  selectComponent(
+                  push(
                     <ListImages
-                      media_id={media?.id}
                       title_header="Backdrops"
                       list_path={`/media/art/find/backdrop?mediaId=${media?.id}`}
                       type_image="backdrop"
@@ -48,7 +47,7 @@ export function EditMedia() {
                         <button
                           className="border rounded-full p-1 flex justify-center items-center w-10 h-10"
                           onClick={() =>
-                            selectComponent(
+                            push(
                               <CreateImage media={media} type="backdrop" />
                             )
                           }
@@ -73,9 +72,8 @@ export function EditMedia() {
               <div className="flex max-w-7xl w-full items-center gap-4">
                 <div
                   onClick={() =>
-                    selectComponent(
+                    push(
                       <ListImages
-                        media_id={media?.id}
                         title_header="Posters"
                         list_path={`/media/art/find/poster?mediaId=${media?.id}`}
                         type_image="poster"
@@ -83,7 +81,7 @@ export function EditMedia() {
                           <button
                             className="border rounded-full p-1 flex justify-center items-center w-10 h-10"
                             onClick={() =>
-                              selectComponent(
+                              push(
                                 <CreateImage media={media} type="poster" />
                               )
                             }
@@ -120,7 +118,7 @@ export function EditMedia() {
                     <button
                       className="border rounded-md px-2 py-1 flex gap-2 text-sm hover:bg-zinc-950/50 transition"
                       onClick={() =>
-                        selectComponent(<Details mediaTitle={media?.title} />)
+                        push(<Details mediaTitle={media?.title} />)
                       }
                     >
                       Edit media

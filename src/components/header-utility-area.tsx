@@ -1,4 +1,6 @@
 import { ArrowLeft } from "lucide-react";
+import { useContext } from "react";
+import { UtilityAreaContext } from "../contexts/utility-area";
 
 interface HeaderUtilityAreaProps {
   title: string;
@@ -11,10 +13,13 @@ export function HeaderUtilityArea({
   subtitle,
   action,
 }: HeaderUtilityAreaProps) {
+
+  const { previus } = useContext(UtilityAreaContext);
+
   return (
     <div className="w-full grid grid-cols-3 px-3 py-2">
       <div className="flex items-center">
-        <ArrowLeft size={24} strokeWidth={1.75} absoluteStrokeWidth className="cursor-pointer" />
+        <ArrowLeft size={24} strokeWidth={1.75} absoluteStrokeWidth className="cursor-pointer"  onClick={() => previus()}/>
       </div>
 
       <div className="text-center">
