@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { UtilityAreaContext } from "../../../contexts/utility-area";
 import { useApiGet } from "../../../hooks/useApiGet";
 import { useApiMutate } from "../../../hooks/useApiMutate";
@@ -8,7 +8,7 @@ import { Toast } from "../../../components/toast/toast";
 import { ArtDTO } from "../../../types/artDTO";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import { useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Media } from "../../../types/media";
 import { useFetchImagesByMedia } from "../../../queries/media";
 
@@ -16,20 +16,20 @@ import { useFetchImagesByMedia } from "../../../queries/media";
 interface ListImagesProps {
   list_path: string;
   type_image: string;
-  title_header: string;
-  action_header?: any;
 }
 
 export function ListImages({
   list_path,
   type_image,
-  title_header,
-  action_header,
 }: ListImagesProps) {
   const params = useParams();
   const currentMediaTitle = params["title"] as string;
+  const [searchParams] = useSearchParams();
+  const [currentSubmenu, setCurrentSubmenu] = React.useState<any>();
 
-  const { selectHeaderUtilityArea } = useContext(UtilityAreaContext);
+  console.log(searchParams.get('submenu'));
+
+
   const [ selectedImage, setSelectedImage ] = React.useState<number>();
   const queryClient = useQueryClient();
   const currentMedia = queryClient.getQueryData<Media>(['current-media', currentMediaTitle]);
@@ -57,15 +57,10 @@ export function ListImages({
     mutate();
   }
 
-  React.useEffect(() => {
-    selectHeaderUtilityArea(
-      <HeaderUtilityArea
-        title={title_header}
-        subtitle={`List of ${type_image}`}
-        action={action_header}
-      />
-    );
-  }, []);
+  useEffect(() => {
+    setCurrentSubmenu(searchParams.get('submenu'))
+  }, [searchParams.get('submenu')])
+
 
   if (isFetching) {
     return <LoadingFull />;

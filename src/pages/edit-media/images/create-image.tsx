@@ -10,6 +10,8 @@ import { Media } from "../../../types/media";
 import { useMutateCreateImage } from "../../../queries/media";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { LoadingFull } from "../../../components/loading-full";
+import { Loading } from "../../../components/loading";
 
 interface CreateImageProps {
   media: Media | undefined;
@@ -30,10 +32,12 @@ export function CreateImage({ media, type }: CreateImageProps) {
   const {
     data: images,
     isFetching,
+    isPending: isPedingImages,
     isError: isErrorListing,
     error: errorListing,
   } = useInfiniteScroll(
-    `/tmdb-api/movie/images/${type}?idMovieTmdb=` + media?.idTMDB
+    `/tmdb-api/movie/images/${type}?idMovieTmdb=` + media?.idTMDB,
+    [type, currentMediaTitle]
   );
 
   const {
@@ -106,6 +110,8 @@ export function CreateImage({ media, type }: CreateImageProps) {
           ))}
         </div>
       </div>
+
+      {isPedingImages && <LoadingClean />}
 
       <div className="w-full flex justify-center items-center mt-6">
         {isFetching && <LoadingClean />}

@@ -14,6 +14,8 @@ import { useFetchMediaByTitle } from "../../queries/media";
 import { Details } from "./details";
 import { CreateImage } from "./images/create-image";
 import { ListImages } from "./images/list-images";
+import { ListPosters } from "./images/poster";
+import { ListBackdrops } from "./images/backdrop";
 
 export function EditMedia() {
   const params = useParams();
@@ -39,27 +41,34 @@ export function EditMedia() {
                 className="border rounded-md px-2 py-1 cursor-pointer flex gap-2 text-sm items-center hover:bg-zinc-950/50 transition"
                 onClick={() =>
                   push(
+
+                    <ListBackdrops />
+
+                    /*
                     <ListImages
-                      title_header="Backdrops"
                       list_path={`/media/art/find/backdrop?mediaId=${media?.id}`}
                       type_image="backdrop"
-                      action_header={
-                        <button
-                          className="border rounded-full p-1 flex justify-center items-center w-10 h-10"
-                          onClick={() =>
-                            push(
-                              <CreateImage media={media} type="backdrop" />
-                            )
-                          }
-                        >
-                          <Plus
-                            size={24}
-                            strokeWidth={1.75}
-                            absoluteStrokeWidth
-                          />
-                        </button>
+                    />*/,
+                    `Backdrops ${media?.title}`,
+                    [
+                      <button
+                      className="p-1 flex justify-center items-center w-8 h-8"
+                      onClick={() =>
+                        push(
+                          <CreateImage media={media} type="backdrop" />,
+                          `Create backdrop for ${media?.title}`, []
+                        )
                       }
-                    />
+                    >
+                      <Plus
+                        size={24}
+                        strokeWidth={1.75}
+                        absoluteStrokeWidth
+                      />
+                    </button>
+
+                    ]
+
                   )
                 }
               >
@@ -73,16 +82,24 @@ export function EditMedia() {
                 <div
                   onClick={() =>
                     push(
+                      
+                      <ListPosters />
+                      /*
                       <ListImages
-                        title_header="Posters"
                         list_path={`/media/art/find/poster?mediaId=${media?.id}`}
                         type_image="poster"
-                        action_header={
-                          <button
-                            className="border rounded-full p-1 flex justify-center items-center w-10 h-10"
+                      /> */,                   
+                      `Posters ${media?.title}`,
+                      [
+                        <button
+                            className="p-1 flex justify-center items-center w-8 h-8"
                             onClick={() =>
                               push(
-                                <CreateImage media={media} type="poster" />
+                                <div>CREATE</div>
+                                /*<CreateImage media={media} type="poster" />*/,
+                                `Create poster for ${media?.title}`, [
+                                  <button>TEST</button>
+                                ]
                               )
                             }
                           >
@@ -92,8 +109,8 @@ export function EditMedia() {
                               absoluteStrokeWidth
                             />
                           </button>
-                        }
-                      />
+                      ]
+                      
                     )
                   }
                   className="cursor-pointer w-96 relative"
@@ -118,7 +135,7 @@ export function EditMedia() {
                     <button
                       className="border rounded-md px-2 py-1 flex gap-2 text-sm hover:bg-zinc-950/50 transition"
                       onClick={() =>
-                        push(<Details mediaTitle={media?.title} />)
+                        push(<Details mediaTitle={media?.title} />, `Edit ${media?.title}`, [])
                       }
                     >
                       Edit media

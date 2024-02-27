@@ -27,7 +27,13 @@ export function HeaderUtilityArea({
         <span className="text-sm text-neutral-500">{subtitle}</span>
       </div>
 
-      <div className="flex items-center justify-end">{action}</div>
+      <div className="flex items-center justify-end">
+        {action.map((action: React.ReactNode, i:number) => (
+          <div key={i}>
+            {action}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

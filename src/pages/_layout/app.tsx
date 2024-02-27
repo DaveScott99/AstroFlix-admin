@@ -18,6 +18,7 @@ export function AppLayout() {
         direction="horizontal"
         className="flex gap-1"
       >
+        {/* 
         <Panel
           className="relative border border-zinc-950/15 dark:border-white/15 p-2 rounded-lg flex justify-center bg-transparent"
           minSize={3}
@@ -26,9 +27,10 @@ export function AppLayout() {
           <Sidebar />
         </Panel>
         <PanelResizeHandle disabled />
+        */}
         <Panel
           className="border relative border-zinc-950/15 dark:border-white/15 p-2 rounded-lg flex justify-center bg-transparent"
-          minSize={15}
+          minSize={3}
           style={{
             scrollbarColor: "#475569 #020617",
           }}

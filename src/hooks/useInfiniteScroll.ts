@@ -3,17 +3,19 @@ import { ASTROFLIX_API } from "../helper/axios-instance";
 import React from "react";
 
 
-export const useInfiniteScroll = (path:string) => {
+export const useInfiniteScroll = (path:string, query_key: string[]) => {
 
     const {
         data,
         error,
+        isPending,
         fetchNextPage,
         isFetching,
         isError
       } = useInfiniteQuery({
-        queryKey: ["posters"],
+        queryKey: [query_key],
         queryFn: async ({ pageParam }) => {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
           const response = await ASTROFLIX_API.get(
             `${path}&page=${pageParam}`
           );
@@ -43,6 +45,7 @@ export const useInfiniteScroll = (path:string) => {
         error,
         isError,
         isFetching,
+        isPending,
         IntersectionObserver
     }
 
