@@ -9,7 +9,7 @@ interface MediaProps {
 export function Card({ media }: MediaProps) {
 
   return (
-    <Link to={`/media/${media.title}/edit`}>
+    <Link to={`/media/${media.title.toLowerCase().replace(" ", "-")}/edit`}>
       <article className="w-full p-2 bg-transparent border border-zinc-700/50 rounded-md cursor-pointer">
         <Poster url={media.poster.filePath} aspect_ratio={media.poster.aspectRatio} />
 

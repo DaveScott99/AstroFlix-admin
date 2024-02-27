@@ -1,17 +1,13 @@
-import React, { useContext } from "react";
-import { HeaderUtilityArea } from "../../../components/header-utility-area";
+import { useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { useParams } from "react-router-dom";
 import { LoadingClean } from "../../../components/loading-clean";
 import { Modal } from "../../../components/modal";
 import { Toast } from "../../../components/toast/toast";
-import { UtilityAreaContext } from "../../../contexts/utility-area";
 import { useInfiniteScroll } from "../../../hooks/useInfiniteScroll";
+import { useMutateCreateImage } from "../../../queries/media";
 import { Image } from "../../../types/image";
 import { Media } from "../../../types/media";
-import { useMutateCreateImage } from "../../../queries/media";
-import { useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
-import { LoadingFull } from "../../../components/loading-full";
-import { Loading } from "../../../components/loading";
 
 interface CreateImageProps {
   media: Media | undefined;
@@ -22,7 +18,6 @@ export function CreateImage({ media, type }: CreateImageProps) {
   const params = useParams();
   const queryClient = useQueryClient();
   const [selectedImage, setSelectedImage] = React.useState<string>();
-  const { selectHeaderUtilityArea } = useContext(UtilityAreaContext);
   const currentMediaTitle = params["title"] as string;
   const currentMedia = queryClient.getQueryData<Media>([
     "current-media",
@@ -32,7 +27,6 @@ export function CreateImage({ media, type }: CreateImageProps) {
   const {
     data: images,
     isFetching,
-    isPending: isPedingImages,
     isError: isErrorListing,
     error: errorListing,
   } = useInfiniteScroll(
@@ -52,15 +46,6 @@ export function CreateImage({ media, type }: CreateImageProps) {
     setSelectedImage(file_path);
     mutate();
   };
-
-  React.useEffect(() => {
-    selectHeaderUtilityArea(
-      <HeaderUtilityArea
-        title={`List of ${type} available on TMDB for ${media?.title} `}
-        subtitle={`Select a ${type} for add`}
-      />
-    );
-  }, []);
 
   return (
     <React.Fragment>
@@ -110,8 +95,6 @@ export function CreateImage({ media, type }: CreateImageProps) {
           ))}
         </div>
       </div>
-
-      {isPedingImages && <LoadingClean />}
 
       <div className="w-full flex justify-center items-center mt-6">
         {isFetching && <LoadingClean />}

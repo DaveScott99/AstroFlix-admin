@@ -37,15 +37,15 @@ export function useFetchListMedias() {
 export function useFetchMediaByTitle(title: string) {
     return useQuery<Media>({
         queryKey: ['current-media', title],
-        queryFn: () => findByTitle(title),
+        queryFn: () => findByTitle(title.replace("-", " ")),
         staleTime: 1000 * 60,
         refetchOnWindowFocus: false
     });
 }
 
-export function useFetchImagesByMedia(path: string, title: string | undefined) {
+export function useFetchImagesByMedia(path: string, queryKeys: string[]) {
     return useQuery<any>({
-        queryKey: ['images-media', { title }],
+        queryKey: [queryKeys],
         queryFn: () => findImagesByMedia(path),
         refetchOnWindowFocus: false
     });

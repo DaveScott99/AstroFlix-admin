@@ -8,7 +8,6 @@ export const useInfiniteScroll = (path:string, query_key: string[]) => {
     const {
         data,
         error,
-        isPending,
         fetchNextPage,
         isFetching,
         isError
@@ -45,7 +44,6 @@ export const useInfiniteScroll = (path:string, query_key: string[]) => {
         error,
         isError,
         isFetching,
-        isPending,
         IntersectionObserver
     }
 

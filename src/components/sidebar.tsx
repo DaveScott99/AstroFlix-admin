@@ -1,24 +1,20 @@
-import {
-  Cog,
-  Film,
-  LayoutDashboard,
-  LifeBuoy,
-  Plus,
-  Tv,
-} from "lucide-react";
+import { Cog, Film, LayoutDashboard, LifeBuoy, Plus, Tv } from "lucide-react";
 import { Link } from "react-router-dom";
 import LogoSolo from "../assets/Logo-solo-white.svg";
+import { useContext } from "react";
+import { UtilityAreaContext } from "../contexts/utility-area";
 
 interface SidebarItemProps {
   icon: any;
   text: string;
   active?: any;
-  alert?: any;
   path: string | "";
-  setTab?: any;
+  action?: any;
 }
 
 export function Sidebar() {
+  const { clear } = useContext(UtilityAreaContext);
+
   return (
     <aside className="h-screen fixed z-50">
       <h3 className="hidden">Sidebar</h3>
@@ -41,12 +37,13 @@ export function Sidebar() {
               />
             }
             text="Dashboard"
-            path="/"
+            path="/dashboard"
           />
           <SidebarItem
             icon={<Film size={24} strokeWidth={1.75} absoluteStrokeWidth />}
             text="Movie"
             path="/movie"
+            action={() => clear()}
           />
 
           <SidebarItem
@@ -79,9 +76,9 @@ export function Sidebar() {
   );
 }
 
-export function SidebarItem({ icon, text, active, path }: SidebarItemProps) {
+export function SidebarItem({ icon, text, active, path, action }: SidebarItemProps) {
   return (
-    <Link to={path}>
+    <Link to={path} onClick={action}>
       <li
         className={`
             relative flex py-3 px-4 

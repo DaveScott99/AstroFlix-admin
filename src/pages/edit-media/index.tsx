@@ -14,15 +14,60 @@ import { useFetchMediaByTitle } from "../../queries/media";
 import { Details } from "./details";
 import { CreateImage } from "./images/create-image";
 import { ListImages } from "./images/list-images";
-import { ListPosters } from "./images/poster";
-import { ListBackdrops } from "./images/backdrop";
 
 export function EditMedia() {
   const params = useParams();
   const currentMediaTitle = params["title"] as string;
-  const { data:media, isFetching, isError, error } = useFetchMediaByTitle(currentMediaTitle);
+  const {
+    data: media,
+    isFetching,
+    isError,
+    error,
+  } = useFetchMediaByTitle(currentMediaTitle);
 
   const { push } = useContext(UtilityAreaContext);
+
+  const handleSelectComponentBackdrop = () => {
+    push(
+      <ListImages
+        list_path={`/media/art/find/backdrop?mediaId=${media?.id}`}
+        type_image="backdrop"
+      />,
+      `Backdrops ${media?.title}`,
+      [
+        <button
+          className="p-1 flex justify-center items-center w-8 h-8"
+          onClick={() =>
+            push(
+              <CreateImage media={media} type="backdrop" />,
+              `Create backdrop for ${media?.title}`,
+              []
+            )
+          }
+        >
+          <Plus size={24} strokeWidth={1.75} absoluteStrokeWidth />
+        </button>,
+      ]
+    );
+  };
+
+  const handleSelectComponentPoster = () => {
+    push(
+      <ListImages
+        list_path={`/media/art/find/poster?mediaId=${media?.id}`}
+        type_image="poster"
+      />,
+      `Posters ${media?.title}`,
+      [
+        <button
+          className="p-1 flex justify-center items-center w-8 h-8"
+          onClick={() => console.log("CLICK")}
+        >
+          <Plus size={24} strokeWidth={1.75} absoluteStrokeWidth />
+        </button>,
+      ]
+    );
+  };
 
   return (
     <React.Fragment>
@@ -39,38 +84,7 @@ export function EditMedia() {
             <div className="max-w-7xl w-full flex justify-end">
               <button
                 className="border rounded-md px-2 py-1 cursor-pointer flex gap-2 text-sm items-center hover:bg-zinc-950/50 transition"
-                onClick={() =>
-                  push(
-
-                    <ListBackdrops />
-
-                    /*
-                    <ListImages
-                      list_path={`/media/art/find/backdrop?mediaId=${media?.id}`}
-                      type_image="backdrop"
-                    />*/,
-                    `Backdrops ${media?.title}`,
-                    [
-                      <button
-                      className="p-1 flex justify-center items-center w-8 h-8"
-                      onClick={() =>
-                        push(
-                          <CreateImage media={media} type="backdrop" />,
-                          `Create backdrop for ${media?.title}`, []
-                        )
-                      }
-                    >
-                      <Plus
-                        size={24}
-                        strokeWidth={1.75}
-                        absoluteStrokeWidth
-                      />
-                    </button>
-
-                    ]
-
-                  )
-                }
+                onClick={() => handleSelectComponentBackdrop()}
               >
                 <Camera size={22} strokeWidth={1.75} absoluteStrokeWidth />
                 Edit backdrop
@@ -80,39 +94,7 @@ export function EditMedia() {
             <div className="max-w-7xl w-full flex flex-col gap-8">
               <div className="flex max-w-7xl w-full items-center gap-4">
                 <div
-                  onClick={() =>
-                    push(
-                      
-                      <ListPosters />
-                      /*
-                      <ListImages
-                        list_path={`/media/art/find/poster?mediaId=${media?.id}`}
-                        type_image="poster"
-                      /> */,                   
-                      `Posters ${media?.title}`,
-                      [
-                        <button
-                            className="p-1 flex justify-center items-center w-8 h-8"
-                            onClick={() =>
-                              push(
-                                <div>CREATE</div>
-                                /*<CreateImage media={media} type="poster" />*/,
-                                `Create poster for ${media?.title}`, [
-                                  <button>TEST</button>
-                                ]
-                              )
-                            }
-                          >
-                            <Plus
-                              size={24}
-                              strokeWidth={1.75}
-                              absoluteStrokeWidth
-                            />
-                          </button>
-                      ]
-                      
-                    )
-                  }
+                  onClick={() => handleSelectComponentPoster()}
                   className="cursor-pointer w-96 relative"
                 >
                   <Poster
@@ -135,7 +117,11 @@ export function EditMedia() {
                     <button
                       className="border rounded-md px-2 py-1 flex gap-2 text-sm hover:bg-zinc-950/50 transition"
                       onClick={() =>
-                        push(<Details mediaTitle={media?.title} />, `Edit ${media?.title}`, [])
+                        push(
+                          <Details mediaTitle={media?.title} />,
+                          `Edit ${media?.title}`,
+                          []
+                        )
                       }
                     >
                       Edit media

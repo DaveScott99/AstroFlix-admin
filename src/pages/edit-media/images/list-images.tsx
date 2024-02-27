@@ -1,45 +1,36 @@
-import React, { useContext, useEffect } from "react";
-import { UtilityAreaContext } from "../../../contexts/utility-area";
-import { useApiGet } from "../../../hooks/useApiGet";
-import { useApiMutate } from "../../../hooks/useApiMutate";
-import { HeaderUtilityArea } from "../../../components/header-utility-area";
-import { LoadingFull } from "../../../components/loading-full";
-import { Toast } from "../../../components/toast/toast";
-import { ArtDTO } from "../../../types/artDTO";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import { useQueryClient } from "@tanstack/react-query";
-import { useParams, useSearchParams } from "react-router-dom";
-import { Media } from "../../../types/media";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { LoadingFull } from "../../../components/loading-full";
+import { Toast } from "../../../components/toast/toast";
+import { useApiMutate } from "../../../hooks/useApiMutate";
 import { useFetchImagesByMedia } from "../../../queries/media";
-
+import { ArtDTO } from "../../../types/artDTO";
+import { Media } from "../../../types/media";
 
 interface ListImagesProps {
   list_path: string;
   type_image: string;
 }
 
-export function ListImages({
-  list_path,
-  type_image,
-}: ListImagesProps) {
+export function ListImages({ list_path, type_image }: ListImagesProps) {
   const params = useParams();
   const currentMediaTitle = params["title"] as string;
-  const [searchParams] = useSearchParams();
-  const [currentSubmenu, setCurrentSubmenu] = React.useState<any>();
 
-  console.log(searchParams.get('submenu'));
-
-
-  const [ selectedImage, setSelectedImage ] = React.useState<number>();
+  const [selectedImage, setSelectedImage] = React.useState<number>();
   const queryClient = useQueryClient();
-  const currentMedia = queryClient.getQueryData<Media>(['current-media', currentMediaTitle]);
+  const currentMedia = queryClient.getQueryData<Media>([
+    "current-media",
+    currentMediaTitle,
+  ]);
 
   const {
     data: images,
     error,
     isError,
     isFetching,
-  } = useFetchImagesByMedia(list_path, currentMediaTitle);
+  } = useFetchImagesByMedia(list_path, [currentMediaTitle, type_image]);
 
   const {
     mutate,
@@ -55,12 +46,7 @@ export function ListImages({
   const handleSelectImage = (idImage: number) => {
     setSelectedImage(idImage);
     mutate();
-  }
-
-  useEffect(() => {
-    setCurrentSubmenu(searchParams.get('submenu'))
-  }, [searchParams.get('submenu')])
-
+  };
 
   if (isFetching) {
     return <LoadingFull />;
