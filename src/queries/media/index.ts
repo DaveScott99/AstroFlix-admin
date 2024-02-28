@@ -13,11 +13,11 @@ async function findByTitle(title: string) {
 }
 
 async function selectImage(currentMedia: Media | undefined, imageId: number | undefined, typeImage: string) {
-    await ASTROFLIX_API.post(`/media/art/select/image?mediaId=${currentMedia?.id}&imageId=${imageId}&type=${typeImage}`);
+    await ASTROFLIX_API.post(`/media/image/select/image?mediaId=${currentMedia?.id}&imageId=${imageId}&type=${typeImage}`);
 }
 
 async function createImage(media: Media | undefined, filePath: string | undefined, type: string) {
-    await ASTROFLIX_API.post(`/media/art/create?idMedia=${media?.id}&titleMedia=${media?.title}&idMediaTmdb=${media?.idTMDB}&filePath=${filePath}&type=${type}`);
+    await ASTROFLIX_API.post(`/media/image/create?idMedia=${media?.id}&titleMedia=${media?.title}&idMediaTmdb=${media?.idTMDB}&filePath=${filePath}&type=${type}`);
 }
 
 async function findImagesByMedia(path: string) {

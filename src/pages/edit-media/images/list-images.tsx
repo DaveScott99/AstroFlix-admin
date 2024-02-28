@@ -39,7 +39,7 @@ export function ListImages({ list_path, type_image }: ListImagesProps) {
     isPending,
     isSuccess: isSuccessSelectImage,
   } = useApiMutate(
-    `/media/art/select/image?mediaId=${currentMedia?.id}&imageId=${selectedImage}&type=${type_image}`,
+    `/media/image/select/image?mediaId=${currentMedia?.id}&imageId=${selectedImage}&type=${type_image}`,
     "current-media"
   );
 

@@ -14,7 +14,7 @@ interface CreateImageProps {
   type: string;
 }
 
-export function CreateImage({ media, type }: CreateImageProps) {
+export function CreateImage({ type }: CreateImageProps) {
   const params = useParams();
   const queryClient = useQueryClient();
   const [selectedImage, setSelectedImage] = React.useState<string>();
@@ -30,7 +30,7 @@ export function CreateImage({ media, type }: CreateImageProps) {
     isError: isErrorListing,
     error: errorListing,
   } = useInfiniteScroll(
-    `/tmdb-api/movie/images/${type}?idMovieTmdb=` + media?.idTMDB,
+    `/tmdb-api/movie/images/${type}?idMovieTmdb=` + currentMedia?.idTMDB,
     [type, currentMediaTitle]
   );
 

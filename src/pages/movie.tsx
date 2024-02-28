@@ -7,9 +7,7 @@ import { useFetchListMedias } from "../queries/media";
 export function Movie() {
 
   const { data:movies, isError, error, isFetching } = useFetchListMedias();
-
-  console.log(movies);
-  
+    
   return (
     <>
       <div>
