@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { UtilityAreaContext } from "../contexts/utility-area";
 import { ListImages } from "../pages/edit-media/images/list-images";
-import { Plus } from "lucide-react";
 import { CreateImage } from "../pages/edit-media/images/create-image";
 import { useQueryClient } from "@tanstack/react-query";
 import { Media } from "../types/media";
@@ -22,20 +21,7 @@ export const useActionsUtilityArea = (currentMediaTitle: string) => {
         type_image="backdrop"
       />,
       `Backdrops ${media?.title}`,
-      [
-        <button
-          className="p-1 flex justify-center items-center w-8 h-8"
-          onClick={() =>
-            push(
-              <CreateImage media={media} type="backdrop" />,
-              `Create backdrop for ${media?.title}`,
-              []
-            )
-          }
-        >
-          <Plus size={24} strokeWidth={1.75} absoluteStrokeWidth />
-        </button>,
-      ]
+      []
     );
   };
 
@@ -46,21 +32,25 @@ export const useActionsUtilityArea = (currentMediaTitle: string) => {
         type_image="poster"
       />,
       `Posters ${media?.title}`,
-      [
-        <button
-          className="p-1 flex justify-center items-center w-8 h-8"
-          onClick={() => 
-            push(
-              <CreateImage media={media} type="poster" />,
-              `Create poster for ${media?.title}`,
-              []
-          )}
-        >
-          <Plus size={24} strokeWidth={1.75} absoluteStrokeWidth />
-        </button>,
-      ]
+      []
     );
   };
+
+  const createBackdrop = () => {
+    push(
+      <CreateImage media={media} type="backdrop" />,
+      `Create poster for ${media?.title}`,
+      []
+    );
+  }
+
+  const createPoster = () => {
+    push(
+      <CreateImage media={media} type="poster" />,
+      `Create poster for ${media?.title}`,
+      []
+    );
+  }
 
   const editMedia = () => {
     push(<Details mediaTitle={media?.title} />, `Edit ${media?.title}`, []);
@@ -70,5 +60,7 @@ export const useActionsUtilityArea = (currentMediaTitle: string) => {
     listBackdrops,
     listPosters,
     editMedia,
+    createPoster,
+    createBackdrop,
   };
 };
