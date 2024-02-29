@@ -1,5 +1,4 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import * as Tabs from "@radix-ui/react-tabs";
 import { Camera } from "lucide-react";
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -13,9 +12,8 @@ import { Title } from "../../components/title";
 import { Toast } from "../../components/toast/toast";
 import { useActionsUtilityArea } from "../../hooks/useActionsUtilityArea";
 import { useFetchMediaByTitle } from "../../queries/media";
-import { Genre } from "../../types/genre";
-import { Status } from "./status";
-import { HomepageStatus } from "./homepage-status";
+import { TabsMenu } from "./tabs-menu";
+import { InfoCard } from "./info-card";
 
 export function EditMedia() {
   const params = useParams();
@@ -118,205 +116,10 @@ export function EditMedia() {
                 </div>
               </div>
               <section className="flex gap-8 w-full">
-                <div className="max-w-4xl w-full">
-                  <Tabs.Root
-                    defaultValue="tab1"
-                    className="flex flex-col gap-4"
-                  >
-                    <Tabs.List className="flex gap-2">
-                      <Tabs.Trigger
-                        value="tab1"
-                        className="py-2 px-4 data-[state='active']:border-b select-none"
-                      >
-                        Cast
-                      </Tabs.Trigger>
-                      <Tabs.Trigger
-                        value="tab2"
-                        className="py-2 px-4 data-[state='active']:border-b select-none"
-                      >
-                        Trailer
-                      </Tabs.Trigger>
-                      <Tabs.Trigger
-                        value="tab3"
-                        className="py-2 px-4 data-[state='active']:border-b select-none"
-                      >
-                        Audio
-                      </Tabs.Trigger>
-                      <Tabs.Trigger
-                        value="tab4"
-                        className="py-2 px-4 data-[state='active']:border-b select-none"
-                      >
-                        Subtitles
-                      </Tabs.Trigger>
-                      <Tabs.Trigger
-                        value="tab5"
-                        className="py-2 px-4 data-[state='active']:border-b select-none"
-                      >
-                        Media
-                      </Tabs.Trigger>
-                    </Tabs.List>
-
-                    <Tabs.Content value="tab1">
-                      <div className="flex flex-col gap-2">
-                        <h2 className="text-lg font-semibold">Actors</h2>
-
-                        <div className="flex gap-4 overflow-x-auto whitespace-nowrap">
-                          <div className=" bg-zinc-950/80 max-w-36 w-full rounded-md">
-                            <div className="w-full">
-                              <img
-                                className="rounded-t-md"
-                                src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg"
-                                alt="Actor photo"
-                              />
-                            </div>
-
-                            <div className="flex flex-col py-2">
-                              <span className="text-base font-semibold">
-                                Actor name
-                              </span>
-                              <span className="text-sm text-zinc-50/50">
-                                Character name
-                              </span>
-                            </div>
-                          </div>
-                          <div className=" bg-zinc-950/80 max-w-36 w-full rounded-md">
-                            <div className="w-full">
-                              <img
-                                className="rounded-t-md"
-                                src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg"
-                                alt="Actor photo"
-                              />
-                            </div>
-
-                            <div className="flex flex-col py-2">
-                              <span className="text-base font-semibold">
-                                Actor name
-                              </span>
-                              <span className="text-sm text-zinc-50/50">
-                                Character name
-                              </span>
-                            </div>
-                          </div>
-                          <div className=" bg-zinc-950/80 max-w-36 w-full rounded-md">
-                            <div className="w-full">
-                              <img
-                                className="rounded-t-md"
-                                src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg"
-                                alt="Actor photo"
-                              />
-                            </div>
-
-                            <div className="flex flex-col py-2">
-                              <span className="text-base font-semibold">
-                                Actor name
-                              </span>
-                              <span className="text-sm text-zinc-50/50">
-                                Character name
-                              </span>
-                            </div>
-                          </div>
-                          <div className=" bg-zinc-950/80 max-w-36 w-full rounded-md">
-                            <div className="w-full">
-                              <img
-                                className="rounded-t-md"
-                                src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg"
-                                alt="Actor photo"
-                              />
-                            </div>
-
-                            <div className="flex flex-col py-2">
-                              <span className="text-base font-semibold">
-                                Actor name
-                              </span>
-                              <span className="text-sm text-zinc-50/50">
-                                Character name
-                              </span>
-                            </div>
-                          </div>
-                          <div className=" bg-zinc-950/80 max-w-36 w-full rounded-md">
-                            <div className="w-full">
-                              <img
-                                className="rounded-t-md"
-                                src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg"
-                                alt="Actor photo"
-                              />
-                            </div>
-
-                            <div className="flex flex-col py-2">
-                              <span className="text-base font-semibold">
-                                Actor name
-                              </span>
-                              <span className="text-sm text-zinc-50/50">
-                                Character name
-                              </span>
-                            </div>
-                          </div>
-                          <div className=" bg-zinc-950/80 max-w-36 w-full rounded-md">
-                            <div className="w-full">
-                              <img
-                                className="rounded-t-md"
-                                src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/sX2etBbIkxRaCsATyw5ZpOVMPTD.jpg"
-                                alt="Actor photo"
-                              />
-                            </div>
-
-                            <div className="flex flex-col py-2">
-                              <span className="text-base font-semibold">
-                                Actor name
-                              </span>
-                              <span className="text-sm text-zinc-50/50">
-                                Character name
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Tabs.Content>
-
-                    <Tabs.Content value="tab2">TRAILER</Tabs.Content>
-                    <Tabs.Content value="tab3">AUDIO</Tabs.Content>
-                    <Tabs.Content value="tab4">SUBTITLES</Tabs.Content>
-                    <Tabs.Content value="tab5">MEDIA</Tabs.Content>
-                  </Tabs.Root>
-                </div>
-
-                <div className="border border-zinc-50/50 rounded-lg max-w-96 w-full p-2 flex flex-col gap-4">
-                  
-                  <div className="flex justify-center gap-8 items-center">
-                    <Status />
-                    <HomepageStatus />
-                  </div>
-
-                  <div>
-                    <span>Content Advisory</span>
-                  </div>
-
-                  <div className="flex flex-col">
-                    <span className="text-base font-semibold">Runtime</span>
-                    <span className="text-sm">{media?.runtime} minutes</span>
-                  </div>
-
-                  <div>
-                    <span className="text-base font-semibold">Budget</span>
-                  </div>
-
-                  <div>
-                    <span className="text-base font-semibold">
-                      Original Language
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className="text-base font-semibold">Genres</span>
-                    <div>
-                      {media?.genres.map((genre: Genre) => (
-                        <span className="text-sm" key={genre.id}>
-                          {genre.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                
+                <TabsMenu />
+                <InfoCard />
+           
               </section>
             </div>
           </div>
