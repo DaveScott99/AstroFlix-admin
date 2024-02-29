@@ -11,7 +11,7 @@ export function Movie() {
   return (
     <>
       <div>
-        <section className="grid grid-cols-5 gap-2 p-2">
+        <section className="grid grid-cols-5 gap-2 p-4">
           {movies?.map((movie: Media) => (
             <Card key={movie.id} media={movie} />
           ))}

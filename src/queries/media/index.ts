@@ -25,6 +25,18 @@ async function findImagesByMedia(path: string) {
     return data;
 }
 
+export async function activeMedia(mediaId: number | undefined) {
+    if (mediaId) {
+        await ASTROFLIX_API.patch(`/media/active/${mediaId}`);
+    }
+}
+
+export async function disableMedia(mediaId: number | undefined) {
+    if (mediaId) {
+        await ASTROFLIX_API.patch(`/media/disable/${mediaId}`);
+    }
+}
+
 export function useFetchListMedias() {
     return useQuery<Media[]>({
         queryKey: ['media-list'],
@@ -77,4 +89,47 @@ export function useMutateCreateImage(media: Media | undefined, filePath: string 
             await queryClient.invalidateQueries({ queryKey: ['images', media?.title] })
         }
     });
+}
+
+export function useMutationActiveMedia(mediaTitle: string) {
+    const queryClient = useQueryClient();
+
+    const currentMedia = queryClient.getQueryData<Media>([
+        "current-media",
+        mediaTitle,
+    ]);
+
+
+    return useMutation({
+        mutationFn: async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            activeMedia(currentMedia?.id);
+        },
+        onSuccess: async () => {
+            const nextMedia = { ...currentMedia, active: true };
+            queryClient.setQueryData(['current-media', mediaTitle], nextMedia);
+        }
+    })
+
+}
+
+
+export function useMutationDisableMedia(mediaTitle: string) {
+    const queryClient = useQueryClient();
+
+    const currentMedia = queryClient.getQueryData<Media>([
+        "current-media",
+        mediaTitle,
+    ]);
+
+    return useMutation({
+        mutationFn: async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            disableMedia(currentMedia?.id);
+        },
+        onSuccess: async () => {
+            const nextMedia = { ...currentMedia, active: false };
+            queryClient.setQueryData(['current-media', mediaTitle], nextMedia);
+        }
+    })
 }

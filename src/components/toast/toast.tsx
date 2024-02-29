@@ -34,55 +34,62 @@ export function Toast({ title, description, status }: ToastProps) {
   }, []);
 
   return (
-    <ToastUI.Provider swipeDirection="down">
-      <ToastUI.Root
-        className={`ToastRoot bg-transparent border ${
-          status === "success"
-            ? "border-green-400"
-            : status === "error"
-            ? "border-red-400 "
-            : status === "info" 
-            ? "border-yellow-400 "
-            : "border-white max-w-[50px]"
-        } p-2 rounded-lg flex items-center gap-3`}
-        open={open}
-        onOpenChange={setOpen}
-      >
-        {status === "loading" && (
+    <div className="absolute bottom-0">
+      <ToastUI.Provider swipeDirection="down">
+        <ToastUI.Root
+          className={`ToastRoot bg-transparent border  ${
+            status === "success"
+              ? "border-green-400"
+              : status === "error"
+              ? "border-red-400 "
+              : status === "info"
+              ? "border-yellow-400 "
+              : "border-white max-w-[50px]"
+          } p-2 rounded-lg flex items-center gap-3`}
+          open={open}
+          onOpenChange={setOpen}
+        >
+          {status === "loading" && (
+            <div>
+              <LoadingClean />
+            </div>
+          )}
+
+          {status === "success" && (
+            <div className="rounded-lg p-2 bg-toastSucess">
+              <CheckCircledIcon width="30px" height="30px" />
+            </div>
+          )}
+
+          {status === "info" && (
+            <div className="rounded-lg p-2 bg-toastMessage">
+              <InfoCircledIcon width="30px" height="30px" />
+            </div>
+          )}
+
+          {status === "error" && (
+            <div className="rounded-lg p-2 bg-toastError">
+              <CrossCircledIcon width="30px" height="30px" />
+            </div>
+          )}
+
           <div>
-            <LoadingClean />
+            <ToastUI.Title className="font-bold text-sm">{title}</ToastUI.Title>
+
+            <ToastUI.Description asChild>
+              <span className="text-sm">{description}</span>
+            </ToastUI.Description>
           </div>
-        )}
-
-        {status === "success" && (
-          <div className="rounded-lg p-2 bg-toastSucess">
-            <CheckCircledIcon width="30px" height="30px" />
-          </div>
-        )}
-
-        {status === "info" && (
-          <div className="rounded-lg p-2 bg-toastMessage">
-            <InfoCircledIcon width="30px" height="30px" />
-          </div>
-        )}
-
-        {status === "error" && (
-          <div className="rounded-lg p-2 bg-toastError">
-            <CrossCircledIcon width="30px" height="30px" />
-          </div>
-        )}
-
-       
-        <div>
-          <ToastUI.Title className="font-bold text-sm">{title}</ToastUI.Title>
-
-          <ToastUI.Description asChild>
-            <span className="text-sm">{description}</span>
-          </ToastUI.Description>
-        </div>
-      </ToastUI.Root>
-      <ToastUI.Viewport className={`ToastViewport  ${status === "loading" ? "right-10 bottom-0" : "flex items-center w-full left-0 bottom-0"} `} />
-    </ToastUI.Provider>
+        </ToastUI.Root>
+        <ToastUI.Viewport
+          className={`ToastViewport  ${
+            status === "loading"
+              ? "right-10 bottom-0"
+              : "flex items-center w-full left-0 bottom-0"
+          } `}
+        />
+      </ToastUI.Provider>
+    </div>
   );
 }
 
