@@ -25,15 +25,21 @@ async function findImagesByMedia(path: string) {
     return data;
 }
 
-export async function activeMedia(mediaId: number | undefined) {
+async function activeMedia(mediaId: number | undefined) {
     if (mediaId) {
         await ASTROFLIX_API.patch(`/media/active/${mediaId}`);
     }
 }
 
-export async function disableMedia(mediaId: number | undefined) {
+async function disableMedia(mediaId: number | undefined) {
     if (mediaId) {
         await ASTROFLIX_API.patch(`/media/disable/${mediaId}`);
+    }
+}
+
+async function updateMedia(mediaId: number | undefined, itemForUpdate: string) {
+    if (mediaId) {
+        await ASTROFLIX_API.patch(`/media/${mediaId}`, itemForUpdate);
     }
 }
 
@@ -113,7 +119,6 @@ export function useMutationActiveMedia(mediaTitle: string) {
 
 }
 
-
 export function useMutationDisableMedia(mediaTitle: string) {
     const queryClient = useQueryClient();
 
@@ -129,6 +134,46 @@ export function useMutationDisableMedia(mediaTitle: string) {
         },
         onSuccess: async () => {
             const nextMedia = { ...currentMedia, active: false };
+            queryClient.setQueryData(['current-media', mediaTitle], nextMedia);
+        }
+    })
+}
+
+export function useMutationUpdateOverview(mediaTitle: string, overview: any) {
+    const queryClient = useQueryClient();
+
+    const currentMedia = queryClient.getQueryData<Media>([
+        "current-media",
+        mediaTitle,
+    ]);
+
+    return useMutation({
+        mutationFn: async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            updateMedia(currentMedia?.id, overview);
+        },
+        onSuccess: async () => {
+            const nextMedia = { ...currentMedia, overview: overview.overview };
+            queryClient.setQueryData(['current-media', mediaTitle], nextMedia);
+        }
+    })
+}
+
+export function useMutationUpdateTagline(mediaTitle: string, tagline: any) {
+    const queryClient = useQueryClient();
+
+    const currentMedia = queryClient.getQueryData<Media>([
+        "current-media",
+        mediaTitle,
+    ]);
+
+    return useMutation({
+        mutationFn: async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            updateMedia(currentMedia?.id, tagline);
+        },
+        onSuccess: async () => {
+            const nextMedia = { ...currentMedia, tagline: tagline.tagline };
             queryClient.setQueryData(['current-media', mediaTitle], nextMedia);
         }
     })

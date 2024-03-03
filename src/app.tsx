@@ -1,11 +1,11 @@
-import { Header } from "./components/header";
+import { RouterProvider } from "react-router-dom";
+import { UtilityAreaProvider } from "./contexts/utility-area";
+import { router } from "./routes";
 
 export function App() {
-  
   return (
-    
-    <Header />
-   
-  )
-  
+    <UtilityAreaProvider>
+      <RouterProvider router={router} />
+    </UtilityAreaProvider>
+  );
 }

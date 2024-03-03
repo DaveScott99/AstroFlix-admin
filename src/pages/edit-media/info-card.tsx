@@ -18,7 +18,7 @@ export function InfoCard() {
 
         <div className="border border-zinc-50/50 rounded-lg max-w-80 max-h-96 h-full w-full p-2 flex flex-col gap-4">
                   
-        <div className="flex justify-center gap-8 items-center">
+        <div className="flex justify-center gap-4 items-center">
           <Status />
           <HomepageStatus />
         </div>

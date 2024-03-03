@@ -112,7 +112,7 @@ export function EditMedia() {
                     </div>
                   </div>
                   <Tagline text={media?.tagline} />
-                  <Overview text={media?.overview} />
+                  <Overview />
                 </div>
               </div>
               <section className="flex gap-8 w-full">

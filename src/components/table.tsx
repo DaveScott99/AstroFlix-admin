@@ -1,7 +1,7 @@
 import { GearIcon } from "@radix-ui/react-icons";
-import { Media } from "../types/Media";
 import { Loading } from "./loading";
 import { Link } from "react-router-dom";
+import { Media } from "../types/media";
 
 interface ListMediasProps {
   listMedias: Media[] | undefined | null;
@@ -45,7 +45,7 @@ export function Table({ listMedias, isFetching }: ListMediasProps) {
             {listMedias?.map((item) => (
               <tr key={item.id}>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <img src={item.logo} className="h-12 w-28" alt="Item logo" />
+                  <img src={item.logo.filePath} className="h-12 w-28" alt="Item logo" />
 
                   <div>
                     <span className="ml-6 font-bold text-base">
